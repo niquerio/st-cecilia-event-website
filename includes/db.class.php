@@ -100,14 +100,27 @@ class db {
     // Returns a single record information for a particular class
     function get_class($id) {
         $return = $this->query(
-            "SELECT accepted, aerobic_id AS AerobicID, aerobic.name AS AerobicName, class.description AS ClassDescription,
+            //"SELECT accepted, aerobic_id AS AerobicID, aerobic.name AS AerobicName, class.description AS ClassDescription,
+            //    class.kwds_id AS KWID, class.name AS ClassName, class.user_id AS teacher, day, difficulty_id AS DifficultyID,
+            //    difficulty.name AS DifficultyName, era_id AS EraID, era.name AS EraName, fee, hours, `class`.`limit` AS 'limit',
+            //    `class`.other AS other, prefix.name AS PrefixName, room.id AS RoomID, room.name AS RoomName, sca_first AS SCAFirst,
+            //    sca_last AS SCALast, style_id AS StyleID, style.name AS StyleName, title.name AS 'Title', type_id AS TypeID,
+            //    type.name AS TypeName, class.url as 'url',user.first AS MundaneFirst, user.id AS UserID, user.last AS MundaneLast
+            //FROM `aerobic`, `class`, `difficulty`, `era`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
+            //WHERE aerobic.id=aerobic_id AND difficulty_id=difficulty.id AND era_id=era.id AND `class`.id='$id'
+            //    AND user.group_id=`group`.id AND kingdom_id=kingdom.id AND prefix_id=prefix.id
+            //    AND (room_id=room.id or room_id='0') AND style_id=style.id AND title_id=title.id AND type_id=type.id
+            //    AND class.user_id=user.id
+            //GROUP BY room_id
+            //ORDER BY class.name"
+            "SELECT accepted, class.description AS ClassDescription,
                 class.kwds_id AS KWID, class.name AS ClassName, class.user_id AS teacher, day, difficulty_id AS DifficultyID,
-                difficulty.name AS DifficultyName, era_id AS EraID, era.name AS EraName, fee, hours, `class`.`limit` AS 'limit',
+                difficulty.name AS DifficultyName, fee, hours, `class`.`limit` AS 'limit',
                 `class`.other AS other, prefix.name AS PrefixName, room.id AS RoomID, room.name AS RoomName, sca_first AS SCAFirst,
                 sca_last AS SCALast, style_id AS StyleID, style.name AS StyleName, title.name AS 'Title', type_id AS TypeID,
                 type.name AS TypeName, class.url as 'url',user.first AS MundaneFirst, user.id AS UserID, user.last AS MundaneLast
-            FROM `aerobic`, `class`, `difficulty`, `era`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
-            WHERE aerobic.id=aerobic_id AND difficulty_id=difficulty.id AND era_id=era.id AND `class`.id='$id'
+            FROM `class`, `difficulty`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
+            WHERE difficulty_id=difficulty.id AND `class`.id='$id'
                 AND user.group_id=`group`.id AND kingdom_id=kingdom.id AND prefix_id=prefix.id
                 AND (room_id=room.id or room_id='0') AND style_id=style.id AND title_id=title.id AND type_id=type.id
                 AND class.user_id=user.id
@@ -128,14 +141,25 @@ class db {
     // Returns a list of class information for a particular KWDS
     function get_class_info($kwds) {
         return $this->query(
+            //"SELECT class.name AS ClassName, sca_first AS SCAFirst, sca_last AS SCALast, title.name AS TitleName,
+            //    user.id AS UserID, user.first AS MundaneFirst, user.last AS MundaneLast, room.name AS RoomName,
+            //    room.id AS RoomID, class.description AS ClassDescription, day, hours, style_id as StyleID,type_id as TypeID,
+            //    difficulty_id AS DifficultyID, aerobic_id AS AerobicID, era_id AS EraID, prefix.name AS PrefixName,
+            //    class.upload AS ClassUpload, class.id AS ClassID, aerobic.name as aerobicName, style.name as styleName,
+            //    difficulty.name as difficultyName
+            //FROM `aerobic`, `class`, `difficulty`, `era`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
+            //WHERE aerobic.id=aerobic_id AND class.kwds_id='$kwds' AND difficulty_id=difficulty.id AND era_id=era.id
+            //    AND user.group_id=group.id AND kingdom_id=kingdom.id AND prefix_id=prefix.id AND room_id=room.id
+            //    AND title_id=title.id AND type_id=type.id AND style_id = style.id AND class.user_id=user.id AND accepted=1
+            //ORDER BY class.name"
             "SELECT class.name AS ClassName, sca_first AS SCAFirst, sca_last AS SCALast, title.name AS TitleName,
                 user.id AS UserID, user.first AS MundaneFirst, user.last AS MundaneLast, room.name AS RoomName,
                 room.id AS RoomID, class.description AS ClassDescription, day, hours, style_id as StyleID,type_id as TypeID,
-                difficulty_id AS DifficultyID, aerobic_id AS AerobicID, era_id AS EraID, prefix.name AS PrefixName,
-                class.upload AS ClassUpload, class.id AS ClassID, aerobic.name as aerobicName, style.name as styleName,
+                difficulty_id AS DifficultyID, prefix.name AS PrefixName,
+                class.upload AS ClassUpload, class.id AS ClassID, style.name as styleName,
                 difficulty.name as difficultyName
-            FROM `aerobic`, `class`, `difficulty`, `era`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
-            WHERE aerobic.id=aerobic_id AND class.kwds_id='$kwds' AND difficulty_id=difficulty.id AND era_id=era.id
+            FROM  `class`, `difficulty`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
+            WHERE class.kwds_id='$kwds' AND difficulty_id=difficulty.id 
                 AND user.group_id=group.id AND kingdom_id=kingdom.id AND prefix_id=prefix.id AND room_id=room.id
                 AND title_id=title.id AND type_id=type.id AND style_id = style.id AND class.user_id=user.id AND accepted=1
             ORDER BY class.name"
@@ -491,17 +515,28 @@ class db {
     }
 
     // Add a new class to the database
-    function insert_class($aero, $desc, $diff, $era, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user) {
+    //function insert_class($aero, $desc, $diff, $era, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user) {
+    function insert_class($desc, $diff, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user) {
         $this->query(
-            "INSERT INTO ".DB_NAME.".class (aerobic_id, description, difficulty_id, era_id, fee, hours,
+            //"INSERT INTO ".DB_NAME.".class (aerobic_id, description, difficulty_id, era_id, fee, hours,
+            //    kwds_id, class.limit, name, other, style_id, teacher, type_id, url, user_id)
+            //VALUES ('$aero', '$desc', '$diff', '$era', '$fee', '$hours', 
+            //    '$kwds','$limit', '$name', '$notes', '$style', '$teacher', '$type', '$url', '$user')"
+            "INSERT INTO ".DB_NAME.".class ( description, difficulty_id, fee, hours,
                 kwds_id, class.limit, name, other, style_id, teacher, type_id, url, user_id)
-            VALUES ('$aero', '$desc', '$diff', '$era', '$fee', '$hours', 
+            VALUES ('$desc', '$diff', '$fee', '$hours', 
                 '$kwds','$limit', '$name', '$notes', '$style', '$teacher', '$type', '$url', '$user')"
         );
         if ($teacher == 1) {
-            $this->query("INSERT INTO coteacher(user_id, class_id)
-                SELECT user_id, id FROM class WHERE aerobic_id='$aero' AND description='$desc' AND difficulty_id='$diff'
-                    AND era_id='$era' AND fee='$fee' AND hours='$hours' AND kwds_id='$kwds' AND class.limit='$limit'
+            $this->query(
+                //"INSERT INTO coteacher(user_id, class_id)
+                //SELECT user_id, id FROM class WHERE aerobic_id='$aero' AND description='$desc' AND difficulty_id='$diff'
+                //    AND era_id='$era' AND fee='$fee' AND hours='$hours' AND kwds_id='$kwds' AND class.limit='$limit'
+                //    AND name='$name' AND other='$notes' AND style_id='$style' AND teacher='$teacher' AND type_id='$type'
+                //    AND url='$url' AND user_id='$user'");
+                "INSERT INTO coteacher(user_id, class_id)
+                SELECT user_id, id FROM class WHERE description='$desc' AND difficulty_id='$diff'
+                    AND fee='$fee' AND hours='$hours' AND kwds_id='$kwds' AND class.limit='$limit'
                     AND name='$name' AND other='$notes' AND style_id='$style' AND teacher='$teacher' AND type_id='$type'
                     AND url='$url' AND user_id='$user'");
         }
@@ -672,6 +707,10 @@ class db {
         return $this->query("UPDATE class SET room_id=0 WHERE class.id='$id'");
     }
 
+    function remove_class($cid){
+        return $this->query("DELETE FROM class WHERE class.id='$cid'");
+    }
+
     // Function that lets the database know you need your password changed
     function setup_password($email, $random) {
         $result = $this->query("SELECT id FROM user WHERE email='$email'");
@@ -706,14 +745,19 @@ class db {
     }
 
     // Update the information of a class
-    function update_class($accept, $aero, $cid, $date, $desc, $diff, $era, $fee, $hours, $name, $room, $style, $type, $notes='') {
+    //function update_class($accept, $aero, $cid, $date, $desc, $diff, $era, $fee, $hours, $name, $room, $style, $type, $notes='') {
+    function update_class($accept, $cid, $date, $desc, $diff, $fee, $hours, $name, $room, $style, $type, $notes='') {
         $other='';
         if ($notes!='') {
             $other=", other='$notes'";
         }
         return $this->query(
-            "UPDATE class SET accepted='$accept', aerobic_id='$aero', day='$date', description='$desc', 
-                difficulty_id='$diff', era_id='$era',fee='$fee',hours='$hours',name='$name',
+            //"UPDATE class SET accepted='$accept', aerobic_id='$aero', day='$date', description='$desc', 
+            //    difficulty_id='$diff', era_id='$era',fee='$fee',hours='$hours',name='$name',
+            //    room_id='$room', style_id='$style', type_id='$type'".$other."
+            //WHERE id='$cid'"
+            "UPDATE class SET accepted='$accept', day='$date', description='$desc', 
+                difficulty_id='$diff', fee='$fee',hours='$hours',name='$name',
                 room_id='$room', style_id='$style', type_id='$type'".$other."
             WHERE id='$cid'"
         );

@@ -23,14 +23,15 @@ if (isset($_POST['class'])) {
     $style=$_POST['style'];
     $type=$_POST['type'];
     $room=0;
-    $aero=$_POST['aerobic'];
+    //$aero=$_POST['aerobic'];
     $diff=$_POST['difficulty'];
     $notes=sanit($_POST['notes']);
 
     $time=($_POST['hour']<8)?$_POST['hour']+12:$_POST['hour'];
-    $era=$_POST['era'];
+    //$era=$_POST['era'];
     $date=$_POST['date'].' '.$time.':'.$_POST['minute'].':00';
-    $db->update_class($accept,$aero,$cid,$date,$desc,$diff,$era,$fee,$hours,$name,$room,$style,$type,$notes);
+    //$db->update_class($accept,$aero,$cid,$date,$desc,$diff,$era,$fee,$hours,$name,$room,$style,$type,$notes);
+    $db->update_class($accept,$cid,$date,$desc,$diff,$fee,$hours,$name,$room,$style,$type,$notes);
 }
 
 $cid = (isset($_GET['id'])) ? (int)$_GET['id'] : 0;
@@ -43,7 +44,7 @@ if (count($result) >= 1 AND /*$_SESSION['user_id']==$result['teacher']*/$db->is_
     /**/$hour=intval($length/60);
     /**/$minute=$length%60;
     $diff = $result['DifficultyID'];
-    $aero = $result['AerobicID'];
+    //$aero = $result['AerobicID'];
     $era = $result['EraID'];
     $style = $result['StyleID'];
     $type = $result['TypeID'];
@@ -76,8 +77,8 @@ if (count($result) >= 1 AND /*$_SESSION['user_id']==$result['teacher']*/$db->is_
         <li><label for="desc">Class Description:</label><textarea name="desc" cols="50" rows="10"><?php echo $desc ?></textarea></li>
         <li><label for="hours">Length of Class:</label><?php dropdown_num('hours', 0, 8, 1,$hour); echo 'Hrs '; dropdown_num('minutes', 0, 55, 5, $minute); echo 'Minutes'; ?></li>
         <li><label for="difficulty">Suggested Skill Level:</label><?php $db=new db; $result=$db->get_list('difficulty'); dropdown($result, 'difficulty', $diff) ?></li>
-        <li><label for="aerobic">Aerobic Level:</label><?php $result=$db->get_list('aerobic'); dropdown($result, 'aerobic', $aero) ?></li>
-        <li><label for="era">Time Period:</label><?php $result=$db->get_list('era'); dropdown($result, 'era', $era) ?></li>
+        <!--<li><label for="aerobic">Aerobic Level:</label><?php// $result=$db->get_list('aerobic'); dropdown($result, 'aerobic', $aero) ?></li>-->
+        <!--<li><label for="era">Time Period:</label><?php //$result=$db->get_list('era'); dropdown($result, 'era', $era) ?></li>-->
         <li><label for="type">Type of Class:</label><?php $result=$db->get_list('type'); dropdown($result, 'type', $type) ?></li>
         <li><label for="style">Class Format:</label><?php $result=$db->get_list('style'); dropdown($result, 'style', $style) ?></li>
         <li><label for="fee">Class Fee:</label><input type="text" name="fee" <?php echo 'value="'.$fee.'"'; ?> /></li>

@@ -19,6 +19,12 @@ if (isset($_POST['unschedule'])) {
     $db->remove_from_schedule($_POST['cid']);
     echo '<div class="box success">The class was removed from the schedule.</div>';
 }
+/* Update class submission */
+if (isset($_POST['remove'])) {
+    $cid = $_POST['cid'];
+    $db->remove_class($cid);
+    echo '<div class="box success">The Class Has been Removed</div>';
+}
 // If the "ADD TO SCHEDULE" button was pressed, update the class info
 if (isset($_POST['class'])) {
 
@@ -30,12 +36,13 @@ if (isset($_POST['class'])) {
     $style=$_POST['style'];
     $type=$_POST['type'];
     $room=($accept!=0)?$_POST['room']:0;
-    $aero=$_POST['aerobic'];
+    //$aero=$_POST['aerobic'];
     $diff=$_POST['difficulty'];
     $time=($_POST['hour']<8)?$_POST['hour']+12:$_POST['hour'];
-    $era=$_POST['era'];
+   // $era=$_POST['era'];
     $date=$_POST['date'].' '.$time.':'.$_POST['minute'].':00';
-    $db->update_class($accept,$aero,$cid,$date,$desc,$diff,$era,$fee,$hours,$name,$room,$style,$type);
+    //$db->update_class($accept,$aero,$cid,$date,$desc,$diff,$era,$fee,$hours,$name,$room,$style,$type);
+    $db->update_class($accept,$cid,$date,$desc,$diff,$fee,$hours,$name,$room,$style,$type);
 }
 
 $cday=isset($_POST['cday'])?$_POST['cday']:date('j', strtotime($kwds['class_date']));
@@ -48,6 +55,8 @@ if (isset($_POST['submit'])) {
     $db->update_classSubmissionDate($class_date, $kwds['KWID']);
     echo '<div class="box success">The Class Submission Cut-off Date has been updated!</div>';
 }
+
+
 
 /* Check for teacher schedule conflicts and show conflicting classes */
 $conflicts = $db->check_conflicts($kwds['KWID']);
@@ -79,7 +88,7 @@ $cid = (isset($_GET['id'])) ? $_GET['id'] : 0;
 $result = $db->get_class($cid);
 if (count($result) > 0) {
     $accept = $result['accepted'];
-    $aero= $result['AerobicID'];
+    //$aero= $result['AerobicID'];
     $cdate= date('Y-m-d', (strtotime($result['day'])));
     $class_name = $result['ClassName'];
     $desc = redisplay($result['ClassDescription']);
@@ -124,17 +133,18 @@ if (count($result) > 0) {
             echo '<a href="profile.php?id='.$teacher['UserID'].'">'.$teacher['sca_first'].' '.$teacher['sca_last'];
             if ($teacher['first']!="") {
                 echo '('.$teacher['first'].' '.$teacher['last'].')';
-            }
+            }j
             echo '</a>';
         }
+        //$db=new db; $resul=$db->get_list('user'); dropdown($result, 'user'
         echo '<br /><br />'; ?></li>
         <li><label for="name">Class Name:</label><input type="text" name="name"<?php echo 'value="'.$class_name.'"'; ?> /></li>
 <!--        <li><label>Teacher:</label><?php echo $sca_name; if ($mundane_name!="  ") { echo' ('.$mundane_name.' )'; } ?></li>-->
         <li><label for="desc">Class Description:</label><textarea name="desc" cols="50" rows="10"><?php echo $desc ?></textarea></li>
         <li><label for="hours">Length of Class:</label><?php dropdown_num('hours', 0, 8, 1,$hour); echo 'Hrs '; dropdown_num('minutes', 0, 55, 5, $minute); echo 'Minutes'; ?></li>
         <li><label for="difficulty">Suggested Skill Level:</label><?php $db=new db; $result=$db->get_list('difficulty'); dropdown($result, 'difficulty', $diff) ?></li>
-        <li><label for="aerobic">Aerobic Level:</label><?php $result=$db->get_list('aerobic'); dropdown($result, 'aerobic', $aero) ?></li>
-        <li><label for="era">Time Period:</label><?php $result=$db->get_list('era'); dropdown($result, 'era', $era) ?></li>
+      <!--  <li><label for="aerobic">Aerobic Level:</label><?php// $result=$db->get_list('aerobic'); dropdown($result, 'aerobic', $aero) ?></li> -->
+        <!--<li><label for="era">Time Period:</label><?php// $result=$db->get_list('era'); dropdown($result, 'era', $era) ?></li>-->
         <li><label for="type">Type of Class:</label><?php $result=$db->get_list('type'); dropdown($result, 'type', $type) ?></li>
         <li><label for="style">Teaching Style:</label><?php $result=$db->get_list('style'); dropdown($result, 'style', $style) ?></li>
         <li><label for="room">Room:</label><?php $result=$db->get_rooms($kwds['KWID']); $result[count($result)]['id']=0;
@@ -143,6 +153,7 @@ if (count($result) > 0) {
         <li><label>Date: </label><?php get_event_dates($cdate); /*name="date"*/ ?></li>
         <li><label>Accepted:</label><input type="checkbox" value="1" name="accept" <?php if ($accept==1) {echo 'checked="checked" ';} ?>/></li>
         <li><label></label><input type="submit" class="button" name="class" value="Update" /></li>
+        <li><label></label><input type="submit" class="button" name="remove" value="Remove Class" /></li>
     </ul>
     <input type="hidden" name="kwds" value="<?php echo $kwds['KWID'] ?>" />
     <input type="hidden" name="cid" value="<?php echo $cid ?>" />

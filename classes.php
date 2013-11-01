@@ -49,7 +49,7 @@ if (count($result) < 1) {
     }
     echo '</li>';
     if ($row['StyleID'] > 1) {echo '<li><label class="bold">Class Style: </label>'.$row['styleName'].'</li>';}
-    if ($row['AerobicID'] > 2) {echo '<li><label class="bold">Aerobic Level: </label>'.$row['aerobicName'].'</li>';}
+    //if ($row['AerobicID'] > 2) {echo '<li><label class="bold">Aerobic Level: </label>'.$row['aerobicName'].'</li>';}
     if ($row['DifficultyID'] > 1) {echo '<li><label class="bold">Suggested Difficulty Level: </label>'.$row['difficultyName'].'</li>';}
     echo'</ul>
     <p>' . $desc . '</p>

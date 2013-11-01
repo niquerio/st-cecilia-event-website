@@ -34,7 +34,9 @@ if (count($result) > 0) {
     $desc = redisplay(redisplay($result['ClassDescription']));
     $start_time = date('l \a\t g:iA', (strtotime($result['day'])));
     $length = $result['hours'];
-    $type = $result['TypeID'];
+    $type = $result['TypeName'];
+    $style = $result['StyleName'];
+    $difficulty = $result['DifficultyName'];
 
     /*Gets a list of classes from the selected teacher(s)*/
     $teachers=$db->get_class_teachers($cid);
@@ -71,8 +73,11 @@ if (count($result) > 0) {
     } else {
         echo '<li><label class="bold">Schedule: </label> Not Yet Scheduled</li>';
     }
-    echo '</ul>
-    <p>' . $desc . '</p>
+        echo '<li><label class="bold">Class Type: </label> ' . $type . '</li>';
+        echo '<li><label class="bold">Teaching Style: </label> ' . $style . '</li>';
+        echo '<li><label class="bold">Difficulty: </label> ' . $difficulty . '</li>';
+    echo '</ul> <p><li><label class="bold">Description: </label></li>'
+     . $desc . '</p>
 </div>
 <div class="box warning">Other classes by the teacher(s) listed above are highlighted yellow below.</div>';
 }
