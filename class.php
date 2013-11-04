@@ -39,10 +39,8 @@ elseif (isset($_POST['hours']) AND ($_POST['hours']*60+$_POST['minutes'] < 10)) 
 }
 // If a class was submitted and passes the above error checks, insert it into the data base
 elseif (isset($_POST['class'])) {
-    //$aero=$_POST['aerobic'];
     $desc=sanit($_POST['desc']);
     $diff=$_POST['difficulty'];
-    //$era=$_POST['era'];
     $fee=(isset($_POST['fee']))?$_POST['fee']:0;
     $hours=($_POST['hours']*60)+$_POST['minutes'];
     $kwds=$kwds['KWID'];
@@ -60,7 +58,7 @@ elseif (isset($_POST['class'])) {
     }
     //$db->insert_class($aero, $desc, $diff, $era, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user);
     $db->insert_class($desc, $diff, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user);
-    echo '<div class="box success">You have successfully submitted your class.</div>';
+    echo '<div class="box success">You have successfully submitted your class. '.$kwds.'</div>';
     redirect('index',$kwds['KWID']);
 }
 elseif (isset($_GET['id'])){

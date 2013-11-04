@@ -289,6 +289,13 @@ function is_teacher($class, $user) {
     return $result;
 }
 
+//Does Post exist?
+function post($key) {
+    if (isset($_POST[$key]))
+        return $_POST[$key];
+    return false;
+}
+
 // Random Character Generator
 function random_gen($length) {
     $random = "";

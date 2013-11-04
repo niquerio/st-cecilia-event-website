@@ -4,8 +4,76 @@
  */
 //require_once('includes/ChromePhp.php');
 require_once('includes/header.php');
-ChromePHP::log("hallo");
-//        ChromePhp::log("In class_schedule.php: " . $db->get_charset_nm());
+?>
+<script>
+function remove_teacher_from_class(cid,teacher_id){
+    //alert(cid + " " + teacher_id);
+    var curr_teacher_selector = "#current_class_teacher_" + teacher_id;
+    $.ajax({
+        url:"lib/remove_teacher.php", 
+        data: {cid: cid, teacher_id: teacher_id},
+        type: "POST",
+        dataType: 'text',
+        success: function(data){
+            $(curr_teacher_selector).remove();
+        }
+    });
+}
+var teacher_to_add = null;
+
+function search_for_teacher(cid){
+    $("#show_hide_teacher_search").hide();
+var current_class_teachers = $("#current_class_teachers");
+var div = $("<div>").attr("id","teacher_search_div");
+$("<label>").attr("for","teacher_search").text("Teachers: ").appendTo(div);
+$("<input>").attr("id","teacher_search").appendTo(div);
+$("<input>").attr("type","submit").click(function(event){ event.preventDefault(); add_teacher_to_class(cid)}).appendTo(div);
+$(div).appendTo(current_class_teachers);
+$("<a>").attr("href","javascript:void()").text("Hide Teacher Add Search").click(function(){
+    $("#show_hide_teacher_search").show();
+    $("#teacher_search_div").remove();
+}).appendTo(div)
+
+    $.ajax({
+        url:"lib/get_users_not_teaching_class.php", 
+        data: {cid: cid},
+        type: "POST",
+        dataType: 'json',
+        success: function(data){
+        
+            $("#teacher_search").autocomplete({
+                source: data, 
+                change: function(event, ui){
+                     if(ui.item === null){
+                         teacher_to_add = null;
+                     }
+                     else{ teacher_to_add = ui.item.id;}  
+                },
+            });
+        },
+            
+        });
+
+}
+$("#teacher_search").click(function(){
+    $("#teacher_search").trigger("focus");
+});
+function  add_teacher_to_class(cid){
+    if(teacher_to_add === null) throw("Not a valid teacher");
+
+    $.ajax({
+        url:"lib/add_teacher_to_class.php", 
+        data: {cid: cid, teacher_id: teacher_to_add},
+        type: "POST",
+        dataType: 'text',
+        success: function(data){
+            location.reload();
+        }
+    });
+
+}
+</script>
+<?php
 
 // Make sure the user is logged in as a user that can edit the schedule
 if (!(can_add_rooms($_SESSION['user_id'],$kwds['KWID']) AND $kwds['KWID']>=$db->get_next_kwds() OR is_super_user())) {
@@ -127,17 +195,18 @@ if (count($result) > 0) {
 <div class="class_info">
     <ul>
         <?php if ($notes !='') { echo '<li><div class="error box">'.$notes.'</div></li>'; }; ?>
-        <li><label for="teacher">Teacher(s):</label><?php
+        <li id="current_class_teachers"><label for="teacher">Teacher(s):</label><?php
         foreach ($teachers as $teacher) {
-            echo '<br /><label></label>';
+            echo '<p id="current_class_teacher_'.$teacher['UserID'].'"><label></label>';
             echo '<a href="profile.php?id='.$teacher['UserID'].'">'.$teacher['sca_first'].' '.$teacher['sca_last'];
             if ($teacher['first']!="") {
                 echo '('.$teacher['first'].' '.$teacher['last'].')';
-            }j
-            echo '</a>';
+            }
+            echo '</a> [<a href="javascript:void()" onClick="remove_teacher_from_class(' .$cid. ',' .$teacher['UserID'].')">Remove</a>]</p>';
         }
+        
         //$db=new db; $resul=$db->get_list('user'); dropdown($result, 'user'
-        echo '<br /><br />'; ?></li>
+    echo('<p id="show_hide_teacher_search"><a href="javascript:void()" onClick="search_for_teacher(\''.$cid.'\')">Add Teacher</a></p></li>')?>
         <li><label for="name">Class Name:</label><input type="text" name="name"<?php echo 'value="'.$class_name.'"'; ?> /></li>
 <!--        <li><label>Teacher:</label><?php echo $sca_name; if ($mundane_name!="  ") { echo' ('.$mundane_name.' )'; } ?></li>-->
         <li><label for="desc">Class Description:</label><textarea name="desc" cols="50" rows="10"><?php echo $desc ?></textarea></li>
@@ -210,7 +279,7 @@ for ($kday=0; $kday <= $keday; $kday++) {
                     if (in_array($rooms['ClassID'], $badID)){echo ' conflict';}
                     elseif (in_array($rooms['ClassID'], $offSite)) {echo ' conflict';}
                     elseif (in_array($rooms['ClassID'], $userClasses)){echo ' required';}
-                    else {
+                    
                         switch ($rooms['TypeID']) {
                             case 2:
                                 echo ' vocal';
@@ -224,7 +293,6 @@ for ($kday=0; $kday <= $keday; $kday++) {
                             default:
                                 break;
                         }
-                    }
                     switch ($rooms['DifficultyID']) {
                         case 2:
                             echo ' beg';

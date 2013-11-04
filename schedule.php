@@ -177,7 +177,7 @@ for ($kday; $kday <= $keday; $kday++) {
                         echo '<div class="class';
                         if (in_array($room['ClassID'], $myClasses)){echo ' required';}
                         elseif (in_array($room['ClassID'], $userClasses)) {echo ' other';}
-                        else {
+                        
                             switch ($room['TypeID']) {
                                 case 2:
                                     echo ' vocal';
@@ -191,7 +191,7 @@ for ($kday; $kday <= $keday; $kday++) {
                                 default:
                                     break;
                             }
-                        }
+                        
                         switch ($room['DifficultyID']) {
                             case 2:
                                 echo ' beg';

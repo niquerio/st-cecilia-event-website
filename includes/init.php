@@ -9,7 +9,7 @@
 //Debugger
 include 'ChromePhp.php';
 // Include and setup the database
-require('db.class.php');
+require(dirname(__FILE__).'/db.class.php');
 $db=new db();
 //ChromePHP::log($db->get_charset());
 
@@ -20,7 +20,7 @@ $session = new Session;
 
  //Determine which KWDS to display
  if (!isset($_GET['kwds']) OR !is_numeric($_GET['kwds'])) {
-     $_GET['kwds']=3;
+     $_GET['kwds']=2;
  }
 // Get KWDS information and store it in variables
 $kwds = $db->get_kwds($_GET['kwds']);

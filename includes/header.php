@@ -15,6 +15,9 @@ require_once('init.php');
         <link rel="shortcut icon" type="image/x-icon" href="http://kwds.org/favicon.ico">
         <link rel="stylesheet" href="css/kwds.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+        <link rel="stylesheet" href="jquery/css/pepper-grinder/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen" /> 
+        <script type="text/javascript" src="jquery/js/jquery-1.9.1.js"></script> 
+        <script type="text/javascript" src="jquery/js/jquery-ui-1.10.3.custom.min.js""></script> 
     </head>
     <body>
         <div id="wrapper">

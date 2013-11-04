@@ -8,7 +8,7 @@ class db {
 
     // Select and connect to the database
     function db() {
-        require_once('includes/config.php');
+        require_once(dirname(__FILE__).'/config.php');
         $this->connection = @mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
 //        AND $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME)
             OR die('Unable to connect to database!');
@@ -97,6 +97,11 @@ class db {
         else return array();
     }
     
+    // Returns charset of database
+    function get_charset(){ 
+        return mysqli_character_set_name($this->connection); 
+    }
+
     // Returns a single record information for a particular class
     function get_class($id) {
         $return = $this->query(
@@ -176,10 +181,22 @@ class db {
     function get_class_rooms($id, $day, $where="type_id>0") {
         return $this->query(
             "SELECT class.name AS ClassName, class.id as ClassID, description, `class`.other AS other,
-                CONCAT(COALESCE(user.sca_first,first,username),' ',COALESCE(sca_last,last)) as user, type_id AS TypeID, difficulty_id as DifficultyID, style_id as StyleID, day, hours,
+            GROUP_CONCAT(user.sca_first,' ',user.sca_last SEPARATOR ', ') AS user,
+            type_id AS TypeID, difficulty_id as DifficultyID, style_id as StyleID, day, hours,
                 ((((DATE_FORMAT(day,'%k') - 9) * 60) + DATE_FORMAT(day,'%i')) * 1.15) as time
-            FROM `class`, `user`
-            WHERE room_id='$id' AND (DATE_FORMAT(day,'%j') + 1)='$day' AND user_id=user.id AND ($where)"
+                FROM `class` 
+                LEFT OUTER JOIN `coteacher` ON coteacher.class_id = class.id
+                LEFT OUTER JOIN `user` ON user.id = coteacher.user_id
+                WHERE 
+                room_id='$id' 
+                AND (DATE_FORMAT(day,'%j') + 1)='$day' 
+                AND ($where)
+            GROUP BY class_id"
+//            "SELECT class.name AS ClassName, class.id as ClassID, description, `class`.other AS other,
+//                CONCAT(COALESCE(user.sca_first,first,username),' ',COALESCE(sca_last,last)) as user, type_id AS TypeID, difficulty_id as DifficultyID, style_id as StyleID, day, hours,
+//                ((((DATE_FORMAT(day,'%k') - 9) * 60) + DATE_FORMAT(day,'%i')) * 1.15) as time
+//            FROM `class`, `user`
+//            WHERE room_id='$id' AND (DATE_FORMAT(day,'%j') + 1)='$day' AND user_id=user.id AND ($where)"
         );
     }
 
@@ -245,7 +262,6 @@ class db {
             FROM kwds, kingdom
             WHERE kwds.id='$kwds' AND kingdom_id=kingdom.id"
         );
-	//ChromePhp::log("Got result: " . count($result));
         if (count($result) == 0) {
             $result = $this->query(
                 "SELECT *, kwds.id as KWID, kingdom.name as kingdom, kwds.name as kwdsName
@@ -383,6 +399,16 @@ class db {
         );
     }
 
+    function get_users_not_teaching_class($cid){
+        return $this->query(
+            "SELECT user.id AS UserID, user.sca_first AS SCAFirst, user.sca_last AS SCALast,
+             user.first AS MundaneFirst, user.last AS MundaneLast 
+            FROM user 
+            WHERE user.id NOT IN (
+                SELECT user.id
+                FROM user, coteacher 
+                WHERE coteacher.user_id = user.id AND coteacher.class_id = $cid)");
+    }
     //Returns a list of classes that have not been scheduled yet
     function get_unscheduled_classes($num) {
         if (is_class_scheduler($_SESSION['user_id'], $num) == true) {
@@ -711,6 +737,10 @@ class db {
         return $this->query("DELETE FROM class WHERE class.id='$cid'");
     }
 
+    // Add a teacher to a class
+    function remove_teacher($class, $user) {
+        return $this->query("DELETE FROM coteacher WHERE class_id='$class' AND user_id='$user'");
+    }
     // Function that lets the database know you need your password changed
     function setup_password($email, $random) {
         $result = $this->query("SELECT id FROM user WHERE email='$email'");
@@ -783,9 +813,6 @@ class db {
         );
     }
 
-    function get_charset(){ 
-        return mysqli_character_set_name($this->connection); 
-    }
 
     // Update the KWDS site information
     function update_kwds($address, $attraction, $concerts, $banner, $city, $class_date, $country, $desc, $dir, $end_date,
