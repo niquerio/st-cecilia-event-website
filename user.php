@@ -13,11 +13,11 @@ else {
     if (!isset($_POST['edit'])) {
         edit_profile_form($edit);
     } else {
-        $username = sanit($_POST['username']);
-        $email = sanit($_POST['email']);
-        $password = sanit(md5($_POST['password']));
-        $new_password = sanit(md5($_POST['new_password']));
-        $password_verify = sanit(md5($_POST['password_verify']));
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
+        $new_password = md5($_POST['new_password']);
+        $password_verify = md5($_POST['password_verify']);
 
 
         // Check to make sure all data was entered correctly.
@@ -39,7 +39,7 @@ else {
             edit_profile_form($edit);
         }
         // Make sure that the password is not blank
-        elseif ($password == sanit(md5(""))) {
+        elseif ($password == md5("")) {
             echo '<div class="box warning">You must enter a password. Please try again.</div>';
             edit_profile_form($edit);
         }
@@ -62,7 +62,7 @@ else {
             $zip = $_POST['zip'];
             $phone = $_POST['phone'];
             $nickname = $_POST['nickname'];
-            if($new_password==$password_verify AND $new_password != sanit(md5(""))) {
+            if($new_password==$password_verify AND $new_password != md5("")) {
                 $password=$new_password;
             }
             $db->update_user($about, $address, $city, $country, $email, $first, $group_id, $id, $last, $nickname, $password, $phone, $prefix_id, $sca_first, $sca_last, $state, $title_id, $username, $zip);

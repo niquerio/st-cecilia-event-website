@@ -14,10 +14,10 @@ if (isset($_GET['x']) AND $db->verify_value($_GET['x'])) {
             // remove password reset value
             $db->delete_reset($uid);
             //change password
-            $db->update_password($uid, $_POST['email'], sanit(md5($_POST['pass1'])));
+            $db->update_password($uid, $_POST['email'], md5($_POST['pass1']));
             echo '<div class="box success">Your password has been accepted. You will now be logged in.</div>';
             //*redirect('login');
-            $result = $db->login($_POST['email'], sanit(md5($_POST['pass1'])), 'yes');
+            $result = $db->login($_POST['email'], md5($_POST['pass1']), 'yes');
             redirect('index',$kwds['KWID']);
             
             include_once('includes/footer.php');

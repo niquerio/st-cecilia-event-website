@@ -15,10 +15,10 @@ if (!$session->isLoggedIn()) {
     if (!isset($_POST['register'])) {
         get_register_form();
     } else {
-        $username = sanit($_POST['username']);
-        $email = sanit($_POST['email']);
-        //* $password = sanit(md5($_POST['password']));
-        //* $password_verify = sanit(md5($_POST['password_verify']));
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        //* $password = md5($_POST['password']);
+        //* $password_verify = md5($_POST['password_verify']);
 
 
         // Check to make sure all data was entered correctly.
@@ -45,7 +45,7 @@ if (!$session->isLoggedIn()) {
             get_register_form();
         }
         // Make sure that the password is not blank
-        elseif ($password == sanit(md5(""))) {
+        elseif ($password == md5("")) {
             echo '<div class="box warning">You must enter a password. Please try again.</div>';
             get_register_form();
         }
@@ -180,12 +180,12 @@ function get_register_form() {
             <?php if (isset($_POST['sca_first'])) { echo 'value="'.$_POST['sca_first'].'"'; } ?> /></li>
         <li><label for="sca_last">SCA Last Name(s):</label><input type="text" name="sca_last" id="sca_last"
             <?php if (isset($_POST['sca_last'])) { echo 'value="'.$_POST['sca_last'].'"'; } ?> /></li>
-        <li><label for="group">SCA Local Group:</label><?php $db= new db(); $result=$db->get_list('plce7673_kwds.group');
-            $index = (isset($_POST['group']))? $_POST['group']:21;
-            dropdown($result, "group", $index); ?>
+      <!--  <li><label for="group">SCA Local Group:</label><?php// $db= new db(); $result=$db->get_list('plce7673_kwds.group'); 
+            //dropdown($result, "group", $index); ?>
             <img src="images/icons/information.png" title="If your group isn't listed, you can add it and change it later." alt="Hint"
                  onclick="alert('If your group isn\'t listed, you can add it and change it later.')" />
-        </li>
+        </li> -->
+<?php $index = (isset($_POST['group']))? $_POST['group']:21; ?>
     </ul>
     <h3>Enter a Biography for you Profile (optional)</h3>
     <ul>

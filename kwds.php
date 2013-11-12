@@ -12,32 +12,33 @@ if (!(is_autocrat($_SESSION['user_id'], $kwds['KWID']) AND $kwds['KWID']>=$db->g
 $info = $db->get_kwds($kwds['KWID']);
 if (count($kwds) > 0) {
     $address=isset($_POST['address'])?$_POST['address']:$kwds['address'];
-    $attraction=isset($_POST['attraction'])?sanit($_POST['attraction']):redisplay($kwds['attractions']);
+    $attraction=isset($_POST['attraction'])?$_POST['attraction']:redisplay($kwds['attractions']);
     $concerts=isset($_POST['concerts'])?$_POST['concerts']:$kwds['concerts'];
+    $evening_activities=isset($_POST['evening_activities'])?$_POST['evening_activities']:$kwds['evening_activities'];
     $banner=isset($_POST['banner'])?$_POST['banner']:$kwds['banner'];
     $cday=isset($_POST['cday'])?$_POST['cday']:date('j', strtotime($kwds['class_date']));
     $city=isset($_POST['city'])?$_POST['city']:$kwds['city'];
     $cmonth=isset($_POST['cmonth'])?$_POST['cmonth']:date('n', strtotime($kwds['class_date']));
     $cyear=isset($_POST['cyear'])?$_POST['cyear']:date('Y', strtotime($kwds['class_date']));
     $country=isset($_POST['country'])?$_POST['country']:$kwds['country'];
-    $desc=isset($_POST['desc'])?sanit($_POST['desc']):redisplay($kwds['description']);
-    $dir=isset($_POST['dir'])?sanit($_POST['dir']):redisplay($kwds['directions']);
+    $desc=isset($_POST['desc'])?$_POST['desc']:redisplay($kwds['description']);
+    $dir=isset($_POST['dir'])?$_POST['dir']:redisplay($kwds['directions']);
     $eday=isset($_POST['eday'])?$_POST['eday']:date('j', strtotime($kwds['end_date']));
     $emonth=isset($_POST['emonth'])?$_POST['emonth']:date('n', strtotime($kwds['end_date']));
     $eyear=isset($_POST['eyear'])?$_POST['eyear']:date('Y', strtotime($kwds['end_date']));
     $facebook=isset($_POST['facebook'])?$_POST['facebook']:$kwds['facebook'];
     $faq=isset($_POST['faq'])?$_POST['faq']:$kwds['faq'];
-    $food=isset($_POST['food'])?sanit($_POST['food']):redisplay($kwds['food']);
+    $food=isset($_POST['food'])?$_POST['food']:redisplay($kwds['food']);
     $group=isset($_POST['group'])?$_POST['group']:$kwds['group_id'];
     $kingdom=isset($_POST['kingdom'])?$_POST['kingdom']:$kwds['kingdom_id'];
-    $linkDesc=isset($_POST['linkDesc'])?sanit($_POST['linkDesc']):redisplay($kwds['linkDesc']);
-    $linkName=isset($_POST['linkName'])?sanit($_POST['linkName']):redisplay($kwds['linkName']);
-    $linkUrl=isset($_POST['linkUrl'])?sanit($_POST['linkUrl']):redisplay($kwds['linkUrl']);
-    $lodging=isset($_POST['lodging'])?sanit($_POST['lodging']):redisplay($kwds['lodging']);
-    $merchant=isset($_POST['merchant'])?sanit($_POST['merchant']):redisplay($kwds['merchants']);
+    $linkDesc=isset($_POST['linkDesc'])?$_POST['linkDesc']:redisplay($kwds['linkDesc']);
+    $linkName=isset($_POST['linkName'])?$_POST['linkName']:redisplay($kwds['linkName']);
+    $linkUrl=isset($_POST['linkUrl'])?$_POST['linkUrl']:redisplay($kwds['linkUrl']);
+    $lodging=isset($_POST['lodging'])?$_POST['lodging']:redisplay($kwds['lodging']);
+    $merchant=isset($_POST['merchant'])?$_POST['merchant']:redisplay($kwds['merchants']);
     $name=isset($_POST['name'])?$_POST['name']:$kwds['kwdsName'];
-    $parking=isset($_POST['parking'])?sanit($_POST['parking']):redisplay($kwds['parking']);
-    $proceeding=isset($_POST['proceeding'])?sanit($_POST['proceeding']):redisplay($kwds['proceedings']);
+    $parking=isset($_POST['parking'])?$_POST['parking']:redisplay($kwds['parking']);
+    $proceeding=isset($_POST['proceeding'])?$_POST['proceeding']:redisplay($kwds['proceedings']);
     $sday=isset($_POST['sday'])?$_POST['sday']:date('j', strtotime($kwds['start_date']));
     $smonth=isset($_POST['smonth'])?$_POST['smonth']:date('n', strtotime($kwds['start_date']));
     $state=isset($_POST['state'])?$_POST['state']:$kwds['state'];
@@ -49,7 +50,7 @@ if (isset($_POST['submit'])) {
     $class_date=$cyear.'-'.$cmonth.'-'.$cday.' 00:00:00';
     $start_date=$syear.'-'.$smonth.'-'.$sday.' 00:00:00';
     $end_date=$eyear.'-'.$emonth.'-'.$eday.' 00:00:00';
-    $db->update_kwds($address,$attraction,$concerts,$banner,$city,$class_date,$country,$desc,$dir,$end_date,$facebook,$faq,$food,
+    $db->update_kwds($address,$attraction,$concerts,$evening_activities,$banner,$city,$class_date,$country,$desc,$dir,$end_date,$facebook,$faq,$food,
             $group,$kingdom,$kwds['KWID'],$linkDesc,$linkName,$linkUrl,$lodging,$merchant,$name,$parking,
             $proceeding,$start_date,$state,$status,$zip);
     echo '<div class="box success">The KWDS information has been updated!</div>';
@@ -96,6 +97,10 @@ if (isset($_POST['submit'])) {
     <h2>Concerts</h2>
     <ul>
         <li><label>Information:</label><textarea name="concerts" cols="40" rows="10"><?php if(isset($concerts)) {echo redisplay($concerts);} ?></textarea></li>
+    </ul>
+    <h2>Evening Activities</h2>
+    <ul>
+        <li><label>Information:</label><textarea name="evening_activities" cols="40" rows="10"><?php if(isset($evening_activities)) {echo redisplay($evening_activities);} ?></textarea></li>
     </ul>
     <h2>Food</h2>
     <ul>

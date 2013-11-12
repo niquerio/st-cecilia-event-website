@@ -5,28 +5,29 @@
     } ?>
     <h2>Main Menu</h2>
     <ul>
-        <li><a href="about.php?kwds=<?php echo $kwds['KWID'] ?>">FAQ</a></li>
-        <li><a href="concerts.php?kwds=<?php echo $kwds['KWID'] ?>">Concert</a></li>
+        <li><a href="directions.php?kwds=<?php echo $kwds['KWID'] ?>">Directions</a></li>
+        <li><a href="master.php?kwds=<?php echo $kwds['KWID'] ?>">Master Schedule</a></li>
         <li><a href="classes.php?kwds=<?php echo $kwds['KWID'] ?>">Class Listing</a></li>
         <li><a href="schedule.php?kwds=<?php echo $kwds['KWID'] ?>">Class Schedule</a></li>
-        <li><a href="directions.php?kwds=<?php echo $kwds['KWID'] ?>">Directions</a></li>
+        <li><a href="concerts.php?kwds=<?php echo $kwds['KWID'] ?>">Concert</a></li>
+        <li><a href="evening_activities.php?kwds=<?php echo $kwds['KWID'] ?>">Evening Activities</a></li>
+        <li><a href="registration.php?kwds=<?php echo $kwds['KWID'] ?>">Site Fees</a></li>
         <li><a href="food.php?kwds=<?php echo $kwds['KWID'] ?>">Food</a></li>
+        <li><a href="about.php?kwds=<?php echo $kwds['KWID'] ?>">FAQ</a></li>
         <!--<li><a href="attractions.php?kwds=<?php echo $kwds['KWID'] ?>">Local Attractions</a></li>-->
         <li><a href="lodging.php?kwds=<?php echo $kwds['KWID'] ?>">Lodging</a></li>
-        <li><a href="index.php?kwds=<?php echo $kwds['KWID'] ?>">Main Page(Home)</a></li>
-        <li><a href="master.php?kwds=<?php echo $kwds['KWID'] ?>">Master Schedule</a></li>
         <!--<li><a href="merchants.php?kwds=<?php echo $kwds['KWID'] ?>">Merchants</a></li>-->
         <!--<li><a href="parking.php?kwds=<?php echo $kwds['KWID'] ?>">Parking</a></li>-->
         <!--<li><a href="proceedings.php?kwds=<?php echo $kwds['KWID'] ?>">Proceedings</a></li>-->
-        <li><a href="registration.php?kwds=<?php echo $kwds['KWID'] ?>">Site Fees</a></li>
         <li><a href="contacts.php?kwds=<?php echo $kwds['KWID'] ?>">Staff</a></li>
         <li><a href="teacher.php?kwds=<?php echo $kwds['KWID'] ?>">Teachers</a></li>
+        <li><a href="index.php?kwds=<?php echo $kwds['KWID'] ?>">Home</a></li>
     </ul>
 
     <h2>User Options</h2>
     <ul>
         <?php if (!$session->isLoggedIn()) { ?>
-        <li><a href="register.php">Register</a></li>
+        <!--<li><a href="register.php">Register</a></li> -->
         <li><a href="login.php">Login</a></li>
         <li><a href="login.php?submit=1">Submit a Class</a></li>
 
@@ -53,7 +54,8 @@
         if (can_add_rooms($_SESSION['user_id'], $kwds['KWID']) AND $kwds['KWID']>=$db->get_next_kwds() OR is_super_user()) {
             echo'<li><a href="room.php?kwds='.$kwds['KWID'].'">Add/Edit Rooms</a></li>
             <li><a href="class_schedule.php?kwds='.$kwds['KWID'].'">Edit Class Schedule</a></li>
-            <li><a href="edit_concert.php?kwds='.$kwds['KWID'].'">Edit Concert Information</a></li>';
+            <li><a href="edit_concert.php?kwds='.$kwds['KWID'].'">Edit Concert Information</a></li>
+            <li><a href="edit_evening_activities.php?kwds='.$kwds['KWID'].'">Edit Evening Activities Information</a></li>';
                 }
          if (can_add_rooms($_SESSION['user_id'], $kwds['KWID']) OR is_super_user()) {
             echo'<li><a href="messages.php?kwds='.$kwds['KWID'].'">Send Mass Email</a></li>

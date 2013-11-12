@@ -9,9 +9,11 @@
 //Debugger
 include 'ChromePhp.php';
 // Include and setup the database
+ChromePHP::log("hi!");
 require(dirname(__FILE__).'/db.class.php');
+ChromePHP::log("hi!");
 $db=new db();
-//ChromePHP::log($db->get_charset());
+ChromePHP::log($db->get_charset());
 
 // Include extra functions and start the session
 require('functions.php');

@@ -24,7 +24,7 @@ require_once('init.php');
             <div id="header">
                 <?php if ($kwds['banner'] == "") { ?>
                     <h1>
-                        <div class="float_left inline"><img src="./images/kingdoms/<?php echo $kwds['arms']; ?>" alt="<?php echo $kwds['kingdom']; ?>" title="<?php echo $kwds['kingdom']; ?> Kingdom"/></div>
+                        <!--<div class="float_left inline"><img src="./images/kingdoms/<?php// echo $kwds['arms']; ?>" alt="<?php// echo $kwds['kingdom']; ?>" title="<?php// echo $kwds['kingdom']; ?> Kingdom"/></div> -->
                         <a href="<?php echo $kwds['KWurl'] ?>">St. Cecilia at the Tower <?php echo roman($kwds['KWID']); ?></a>
                         <?php if($kwds['facebook'] != '') { ?><div class="float_right" style="margin-top:28px;margin-right:3px;"><a href="<?php echo $kwds['facebook']; ?>" target="_blank"><img src="images/icons/facebook.png" alt="St. Cecilia at the Tower Facebook Page" title="St. Cecilia at the Tower Facebook Page" style="border:0px;" /></a></div><?php } ?>
                     </h1>
@@ -33,9 +33,10 @@ require_once('init.php');
                 } else { ?>
                     <h2><?php echo date('M j, Y', strtotime($kwds['start_date'])).' to '.date('M j, Y', strtotime($kwds['end_date'])); ?></h2>
                 <?php } } else { ?>
-                    <div id="banner">
-                        <div class="inline"><img src="./images/kingdoms/<?php echo $kwds['arms']; ?>" alt="Kingdom Arms" /></div>
-                        <a href="<?php echo $kwds['KWurl'] ?>"><img width="850" height="150" src="images/header/<?php echo $kwds['banner']; ?>" title="KWDS<?php echo $kwds['KWID']; ?>" /></a>
+                    <div id="banner" style="width:953px;height:156px;background:url(images/header/<?php echo $kwds['banner']; ?>) no-repeat;fload:left;">
+                       <!-- <div class="inline"><img src="./images/kingdoms/<?php// echo $kwds['arms']; ?>" alt="Kingdom Arms" /></div> -->
+                        <!--<a href="<?php// echo $kwds['KWurl'] ?>"><img width="850" height="150" src="images/header/<?php// echo $kwds['banner']; ?>" title="KWDS<?php// echo $kwds['KWID']; ?>" /></a>-->
+                        <?php if($kwds['facebook'] != '') { ?><div class="float_right" style="margin-top:90px;margin-right:3px;"><a href="<?php echo $kwds['facebook']; ?>" target="_blank"><img src="images/icons/facebook.png" alt="St. Cecilia at the Tower Facebook Page" title="St. Cecilia at the Tower Facebook Page" style="border:0px;" /></a></div><?php } ?>
                     </div>
                 <?php } ?>
             </div>

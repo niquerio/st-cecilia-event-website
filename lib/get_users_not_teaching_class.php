@@ -4,7 +4,7 @@ require_once(dirname(__FILE__).'/../includes/functions.php');
 
 if(!post('cid')) exit;
 
-$cid = sanit(post('cid'));
+$cid = post('cid');
 //$cid = sanit($_GET['cid']);
 $users=$db->get_users_not_teaching_class($cid);
 $result = array();

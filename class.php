@@ -39,17 +39,17 @@ elseif (isset($_POST['hours']) AND ($_POST['hours']*60+$_POST['minutes'] < 10)) 
 }
 // If a class was submitted and passes the above error checks, insert it into the data base
 elseif (isset($_POST['class'])) {
-    $desc=sanit($_POST['desc']);
+    $desc=$_POST['desc'];
     $diff=$_POST['difficulty'];
     $fee=(isset($_POST['fee']))?$_POST['fee']:0;
     $hours=($_POST['hours']*60)+$_POST['minutes'];
     $kwds=$kwds['KWID'];
     $limit=(isset($_POST['limit']))?$_POST['limit']:0;
-    $name=sanit($_POST['name']);
-    $notes=sanit($_POST['notes']);
+    $name=$_POST['name'];
+    $notes=$_POST['notes'];
     $style=$_POST['style'];
     $type=$_POST['type'];
-    $url=sanit($_POST['url']);
+    $url=$_POST['url'];
     $user=$_SESSION['user_id'];
     if (isset($_POST['teacher']) AND $_POST['teacher']==1) {
         $teacher = 0;
@@ -68,18 +68,18 @@ elseif (isset($_GET['id'])){
     }
     else {
        // $aero= $result['AerobicName'];
-        $desc=sanit($result['description']);
+        $desc=$result['description'];
         $diff= $result['DifficultyName'];
         //$era= $result['EraName'];
         $fee= ($result['fee']!='')? $result['fee']:0;
         $hours= $result['hours'];
         $kwds= $result['KWID'];
         $limit=($result['limit']!='')? $result['limit']:0;
-        $name=sanit($result['ClassName']);
-        $notes=sanit($result['other']);
+        $name=$result['ClassName'];
+        $notes=$result['other'];
         $style= $result['StyleName'];
         $type= $result['TypeName'];
-        $url=sanit($result['url']);
+        $url=$result['url'];
         $user=$_SESSION['user_id'];
         show_class_form($cutoff);/*$name*/
     }

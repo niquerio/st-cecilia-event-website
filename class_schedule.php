@@ -98,8 +98,8 @@ if (isset($_POST['class'])) {
 
     $accept=$_POST['accept'];
     $cid=$_POST['cid'];
-    $name=sanit($_POST['name']);
-    $desc=sanit($_POST['desc']);
+    $name=$_POST['name'];
+    $desc=$_POST['desc'];
     $hours=$_POST['hours']*60+$_POST['minutes'];
     $style=$_POST['style'];
     $type=$_POST['type'];

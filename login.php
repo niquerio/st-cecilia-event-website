@@ -18,8 +18,8 @@ else if ($_POST['username'] == '' || $_POST['password'] == '') {
     get_login_form();
 } else {
     // Get input from login form
-    $username = sanit($_POST['username']);
-    $password = sanit(md5($_POST['password']));
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
 
     // Check if the 'remember me' box has been checked
     if (isset($_POST['remember'])) {

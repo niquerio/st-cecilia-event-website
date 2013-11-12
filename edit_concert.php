@@ -22,7 +22,7 @@ $cid = (isset($_GET['id'])) ? (int)$_GET['id'] : 0;
 $concerts = $db->get_kwds_field('concerts',$kwds['KWID']);
 
 ?>
-<h1>Concerts</h1>
+<h1>Edit Concert Information</h1>
 <form class="form" action="edit_concert.php?kwds=<?php echo $kwds['KWID'] ?>&id=<?php echo $cid ?>" method="post">
 <div class="class_info">
     <ul>
