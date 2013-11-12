@@ -19,6 +19,11 @@ require_once('init.php');
         <script type="text/javascript" src="jquery/js/jquery-1.9.1.js"></script> 
         <script type="text/javascript" src="jquery/js/jquery-ui-1.10.3.custom.min.js""></script> 
     </head>
+  <script>
+  $(function() {
+    $( document ).tooltip();
+  });
+  </script>
     <body>
         <div id="wrapper">
             <div id="header">

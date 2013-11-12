@@ -11,6 +11,7 @@ include 'ChromePhp.php';
 // Include and setup the database
 require(dirname(__FILE__).'/db.class.php');
 $db=new db();
+ChromePHP::log($db->get_charset());
 
 // Include extra functions and start the session
 require('functions.php');
