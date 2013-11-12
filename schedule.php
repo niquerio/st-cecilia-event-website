@@ -81,7 +81,7 @@ if (count($result) > 0) {
 </div>
 <div class="box warning">Other classes by the teacher(s) listed above are highlighted yellow below.</div>';
 }
-$where="type_id>0";
+$where=array();
 ?>
 
 <script language="JavaScript" type="text/javascript">
@@ -117,21 +117,21 @@ if (count($conflicts) > 0) {
     <div class="legend_th"><u>Legend</u><br />Black is not rated</div>
     <div class="wrapper">
     <div class="class vocal">Vocal Class<br />(Blue Border)<br /><input type="checkbox" name="vocal" value="vocal" onclick="form_submit(0)"
-        <?php if (isset($_POST['vocal'])) {echo 'checked="checked" '; $where.=" AND type_id!='2'";} ?> />Hide</div>
+        <?php if (isset($_POST['vocal'])) {echo 'checked="checked" '; array_push($where,array('type_id'=>'2'));} ?> />Hide</div>
     <div class="class instrumental">Instrumental Class<br /><br />(Red Border)<br /><input type="checkbox" name="instrumental" value="instrumental" onclick="form_submit(0)"
-        <?php if (isset($_POST['instrumental'])) {echo 'checked="checked" '; $where.=" AND type_id!='3'";} ?>/>Hide</div>
+        <?php if (isset($_POST['instrumental'])) {echo 'checked="checked" ';array_push($where,array('type_id'=>'3'));} ?>/>Hide</div>
     <div class="class vocal_instrumental">Vocal & Instrumental<br />(Purple Border)<br /><input type="checkbox" name="vocal_instrumental" value="vocal_instrumental" onclick="form_submit(0)"
-        <?php if (isset($_POST['vocal_instrumental'])) {echo 'checked="checked" '; $where.=" AND type_id!='4'";} ?>/>Hide</div>
+        <?php if (isset($_POST['vocal_instrumental'])) {echo 'checked="checked" '; array_push($where,array('type_id'=>'4'));} ?>/>Hide</div>
     <div class="class beg">Beginner Class<br />(Green Text)<br /><input type="checkbox" name="beg" value="beg" onclick="form_submit(0)" 
-        <?php if (isset($_POST['beg'])) {echo 'checked="checked" '; $where.=" AND difficulty_id!='2'";} ?>/>Hide</div>
+        <?php if (isset($_POST['beg'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'2'));}?>/>Hide</div>
     <div class="class int">Intermediate Class<br />(Blue Text)<br /><input type="checkbox" name="int" value="int" onclick="form_submit(0)" 
-        <?php if (isset($_POST['int'])) {echo 'checked="checked" '; $where.=" AND difficulty_id!='3'";} ?>/>Hide</div>
+        <?php if (isset($_POST['int'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'3'));} ?>/>Hide</div>
     <div class="class adv">Advanced Class<br />(Red Text)<br /><input type="checkbox" name="advanced" value="advanced" onclick="form_submit(0)" 
-        <?php if (isset($_POST['advanced'])) {echo 'checked="checked" '; $where.=" AND difficulty_id!='4'";} ?>/>Hide</div>
+        <?php if (isset($_POST['advanced'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'4'));}?>/>Hide</div>
     <div class="class lecture">Lecture Class<br />(Lecture Icon)<br /><input type="checkbox" name="lecture" value="lecture" onclick="form_submit(0)" 
-        <?php if (isset($_POST['lecture'])) {echo 'checked="checked" '; $where.=" AND style_id!='2'";} ?>/>Hide</div>
+        <?php if (isset($_POST['lecture'])) {echo 'checked="checked" ';array_push($where,array('style_id'=>'2'));}?>/>Hide</div>
     <div class="class playing">Playing Class<br />(Playing Icon<br /><input type="checkbox" name="playing" value="playing" onclick="form_submit(0)"
-        <?php if (isset($_POST['playing'])) {echo 'checked="checked" '; $where.=" AND style_id!='1'";} ?>/>Hide</div>
+        <?php if (isset($_POST['playing'])) {echo 'checked="checked" ';array_push($where,array('style_id'=>'1'));}?>/>Hide</div>
     </div>
 </div>
 <?php
@@ -168,6 +168,7 @@ for ($kday; $kday <= $keday; $kday++) {
             echo'
     <div class="tr">';
             $rooms = $db->get_class_rooms($result['id'], date('z', strtotime($kwds['start_date'])) + $kday + 2, $where);
+            //print_r( $rooms);
             if (count($rooms) > 0) {
                 echo'
         <div class="th">' . $result['name'] . '</div>';

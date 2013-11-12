@@ -3,6 +3,7 @@
  * KWDS DATABASE CLASS
  */
 
+        require_once(dirname(__FILE__).'/ChromePhp.php');
 class db {
     private $connection;
 
@@ -195,10 +196,19 @@ class db {
     }
 
     // Returns a list of classes from a particular room for a certain day
-    function get_class_rooms($id, $day, $where="type_id>0") {
+    function get_class_rooms($id, $day, $where_inputs) {
        $id = mysqli_real_escape_string($this->connection, $id); 
        $day = mysqli_real_escape_string($this->connection, $day); 
-       $where = mysqli_real_escape_string($this->connection, $where); 
+       $where = "type_id>0";
+       foreach($where_inputs as $index=>$attributes){
+        foreach($attributes as $attribute=>$value){
+           $attribute = mysqli_real_escape_string($this->connection, $attribute); 
+           $value = mysqli_real_escape_string($this->connection, $value); 
+           $where.=" AND $attribute != $value";
+        }
+       }
+
+       
         return $this->query(
             "SELECT class.name AS ClassName, class.id as ClassID, description, `class`.other AS other,
             GROUP_CONCAT(user.sca_first,' ',user.sca_last SEPARATOR ', ') AS user,
