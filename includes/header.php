@@ -11,8 +11,8 @@ require_once('init.php');
         <title>St. Cecilia at the Tower</title>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="icon" type="image/png" href="http://kwds.org/images/icons/favicon.png">
-        <link rel="shortcut icon" type="image/x-icon" href="http://kwds.org/favicon.ico">
+        <!--<link rel="icon" type="image/png" href="http://kwds.org/images/icons/favicon.png"> -->
+        <link rel="shortcut icon" type="image/x-icon" href="http://cynnabar.org/sites/default/files/cynnabar_favicon.ico">
         <link rel="stylesheet" href="css/kwds.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
         <link rel="stylesheet" href="jquery/css/pepper-grinder/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen" /> 

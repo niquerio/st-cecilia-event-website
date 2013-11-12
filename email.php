@@ -1,7 +1,7 @@
 <?php
 /*
  * St. Cecilia Sending an Email
- * password: 3355d92c04a3332339b767f9278405ff
+ * password: 18d6769919266cd0bd6cd78aa405d5d0
  */
 require_once('includes/header.php');
 
@@ -12,8 +12,8 @@ require_once('includes/header.php');
 if (isset($_POST['from']) AND check_email_address($_POST['from'])==false) {
     echo '<div class="box error">You need to enter a valid email address.</div>';
 }
-elseif (isset($_POST['code']) AND sanit(md5(strtolower($_POST['code'])))!="3355d92c04a3332339b767f9278405ff") {
-    echo '<div class="box error">You did not answer the verification question correctly. (Hint: The answer is on top of the page)</div>';
+elseif (isset($_POST['code']) AND sanit(md5(strtolower($_POST['code'])))!="18d6769919266cd0bd6cd78aa405d5d0") {
+    echo '<div class="box error">You did not answer the verification question correctly. (Hint: The answer is the topic of the event)</div>';
 }
 elseif (isset($_POST['message'])) {
     $to = $db->get_user_email($_POST['uid']);

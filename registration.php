@@ -16,7 +16,7 @@ if ($register['linkUrl']!='') {
 
 }
 $type="";
-if (count($results) > 1) {
+if (count($results) >= 1) {
     foreach ($results as $result) {
         if (($type.$prereg) != ($result['FeeTypeName'].$result['prereg'])) {
             $type = $result['FeeTypeName'];

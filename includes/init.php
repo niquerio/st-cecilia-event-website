@@ -20,7 +20,7 @@ $session = new Session;
 
  //Determine which KWDS to display
  if (!isset($_GET['kwds']) OR !is_numeric($_GET['kwds'])) {
-     $_GET['kwds']=1;
+     $_GET['kwds']=3;
  }
 // Get KWDS information and store it in variables
 $kwds = $db->get_kwds($_GET['kwds']);
