@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Add New Staff Page
+ * St. Cecilia Add New Staff Page
  */
 require_once('includes/header.php');
 $staff = $db->get_staff($kwds['KWID']);
@@ -42,7 +42,7 @@ if (isset($_POST['update'])){
 <?php
 if  ($_SESSION['user_id']==1) {
 ?>
-        <li><label> KWDS #: </label><input type="text" name="kwds" /></li>
+        <li><label> St. Cecilia #: </label><input type="text" name="kwds" /></li>
 <?php
 }
 ?>
@@ -121,7 +121,7 @@ elseif (isset($_POST['add'])) {
 <?php
 if  ($_SESSION['user_id']==1) {
 ?>
-        <li><label> KWDS #: </label><input type="text" name="kwds" /></li>
+        <li><label> St. Cecilia #: </label><input type="text" name="kwds" /></li>
 <?php
 }
 ?>

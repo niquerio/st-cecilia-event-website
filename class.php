@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Class Submission Page
+ * St. Cecilia Class Submission Page
  */
 require_once('includes/header.php');
 
@@ -16,7 +16,7 @@ if (!$session->isLoggedIn()) {
 }
 // Can only submit a class if it is not past the due date.
 if ($db->is_class_cutoff($kwds['KWID']) AND !is_super_user()) {
-    echo '<div class="box warning">This KWDS is no longer accepting class submissions.</div>';
+    echo '<div class="box warning">This St. Cecilia is no longer accepting class submissions.</div>';
     redirect('index',$kwds['KWID']);
     include_once('includes/footer.php');
     die;
@@ -95,7 +95,7 @@ function show_class_form($cutoff) { ?>
     <h1>New Class Submission</h1>
     <h2>Deadline for Class Submissions: <?php echo $cutoff;?></h2>
     <div class="attention box">After a class is submitted, it will not show up on the schedule page until it is approved
-    by the appropriate KWDS staff. You can edit your class anytime before it is added to the schedule.</div>
+    by the appropriate St. Cecilia staff. You can edit your class anytime before it is added to the schedule.</div>
     <div class="warning box">For further information about a box, hover over or click the small icons on the right side.</div>
     <ul>
         <?php if (is_class_scheduler($_SESSION['userID'],$KWID)) { ?>
@@ -134,7 +134,7 @@ function show_class_form($cutoff) { ?>
             <img src="images/icons/information.png" style="vertical-align:top;" alt="Special Notes" 
                  title="Enter information such as schedule preferences/avoidances, arrival/departure dates, special needs, etc."
                  onclick="alert('Enter information such as schedule preferences/avoidances, arrival/departure dates, special needs, etc.')" /></li>
-        <!--<li><label for="submit">KWDS Submission:</label> <?php /*$result=$db->get_kwds_submissions(); dropdown($result, 'kwds') */ ?></li>-->
+        <!--<li><label for="submit">St. Cecilia Submission:</label> <?php /*$result=$db->get_kwds_submissions(); dropdown($result, 'kwds') */ ?></li>-->
         <li><label> </label><input type="submit" class="button" name="class" value="Submit Class" /></li>
     </ul>
 </form>

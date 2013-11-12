@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Adding a Room
+ * St. Cecilia Adding a Room
  */
 require_once('includes/header.php');
 
@@ -53,7 +53,7 @@ if (isset($_POST['edit']) and isset($_POST['rooms'])) {
         <li><label>Notes:</label> <textarea name="notes" cols="50" rows="5"><?php echo $notes ?></textarea></li>
         <?php if (is_super_user($_SESSION['user_id'])) {
             echo'
-        <li><label>KWDS:</label> <input type="number" name="kwds" value="'.$kwds['KWID'].'" />';
+        <li><label>St. Cecilia:</label> <input type="number" name="kwds" value="'.$kwds['KWID'].'" />';
         } else {
             echo '<input type="hidden" name="kwds" value="'.$kwds['KWID'].'" />';
         } ?>

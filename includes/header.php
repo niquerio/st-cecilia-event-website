@@ -35,7 +35,7 @@ require_once('init.php');
                 <?php } } else { ?>
                     <div id="banner" style="width:953px;height:156px;background:url(images/header/<?php echo $kwds['banner']; ?>) no-repeat;fload:left;">
                        <!-- <div class="inline"><img src="./images/kingdoms/<?php// echo $kwds['arms']; ?>" alt="Kingdom Arms" /></div> -->
-                        <!--<a href="<?php// echo $kwds['KWurl'] ?>"><img width="850" height="150" src="images/header/<?php// echo $kwds['banner']; ?>" title="KWDS<?php// echo $kwds['KWID']; ?>" /></a>-->
+                        <!--<a href="<?php// echo $kwds['KWurl'] ?>"><img width="850" height="150" src="images/header/<?php// echo $kwds['banner']; ?>" title="St. Cecilia <?php// echo $kwds['KWID']; ?>" /></a>-->
                         <?php if($kwds['facebook'] != '') { ?><div class="float_right" style="margin-top:90px;margin-right:3px;"><a href="<?php echo $kwds['facebook']; ?>" target="_blank"><img src="images/icons/facebook.png" alt="St. Cecilia at the Tower Facebook Page" title="St. Cecilia at the Tower Facebook Page" style="border:0px;" /></a></div><?php } ?>
                     </div>
                 <?php } ?>

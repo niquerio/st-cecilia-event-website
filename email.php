@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Sending an Email
+ * St. Cecilia Sending an Email
  * password: 3355d92c04a3332339b767f9278405ff
  */
 require_once('includes/header.php');
@@ -23,11 +23,11 @@ elseif (isset($_POST['message'])) {
     else {
         $from = $_POST['from'];
     }
-    $message = 'This message was sent via kwds.org:
+    $message = 'This message was sent via cynnabar.org:
 
 '.escape_query($_POST['message']);
-    mail($to, '[KWDS]'.$_POST['subject'], redisplay($message), 'FROM: '.$from);
-    mail($from, '[KWDS]'.$_POST['subject'], redisplay($message).'(*You sent this message to '.$db->get_username($_POST['uid']).'*)', 'FROM: '.$from);
+    mail($to, '[St. Cecilia]'.$_POST['subject'], redisplay($message), 'FROM: '.$from);
+    mail($from, '[St. Cecilia]'.$_POST['subject'], redisplay($message).'(*You sent this message to '.$db->get_username($_POST['uid']).'*)', 'FROM: '.$from);
     echo '<div class="box success">Your email has been sent!</div>';
     redirect('index');
     die;
@@ -52,7 +52,7 @@ elseif (!isset($_POST['uid'])) {
         <li><label>Message:</label><textarea name="message" cols="50" rows="5"></textarea> </li>
         <?php if (!isset($_SESSION['user_id'])) { ?>
         <li>Please answer the following question to verify your existence.</li>
-        <li>What does the "D" stand for in KWDS?</li>
+        <li>St. Ceilia? is the patron saint of what?</li>
         <li><label></label><input type="text" name="code" /></li>
         <?php } ?>
         <li><label></label><input type="submit" class="button" value="Send Email" /></li>

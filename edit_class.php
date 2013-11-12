@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Schedule
+ * St. Cecilia Schedule
  */
 require_once('includes/header.php');
 

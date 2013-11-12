@@ -1,11 +1,11 @@
 <?php
 /*
- * KWDS User Registration Page
+ * St. Cecilia User Registration Page
  */
 require_once('includes/header.php');
 global $db;
 ?>
-<h2>KWDS Website Account Registration</h2>
+<h2>St. Cecilia Website Account Registration</h2>
 <?php
 
 // If user is logged in, display error and redirect back to main page
@@ -91,8 +91,9 @@ if (!$session->isLoggedIn()) {
 
             $random=random_gen(32);
             $db->setup_password($_POST['email'], $random);
+            echo '<div class="box">'.$_POST['email'] . ' ' . $random.'</div>';
             $message = 'To activate your account, please visit the following page and submit a password for your account: '.SITE_URL.'/reset.php?x='.$random;
-            mail($email, '[KWDS]New Account Registration', $message, 'From: no_reply@kwds.org');
+            mail($email, '[St. Cecilia]New Account Registration', $message, 'From: no_reply@cynnabar.org');
 
             // After the user has registered an account, log the user in
             /**$result = $db->login($username, $password, 'yes');
@@ -112,17 +113,17 @@ if (!$session->isLoggedIn()) {
 
 function get_register_form() {
 ?>
-<div class="warning box">If you have not made an account yet, but you have taught at a previous KWDS or
+<div class="warning box">If you have not made an account yet, but you have taught at a previous St. Cecilia or
     have been a staff member, then an account was already made for you. Email gwommy at gmail.com
     with your SCA Name and he'll set it up so you can use the forgot password option on the login page.</div>
 <ul class="registration">
-    <li>All KWDS staff and teachers must register an account.</li>
+    <li>All St. Cecilia staff and teachers must register an account.</li>
     <li>Once you make an account, you'll be able to use it from year to year.</li>
-    <li>KWDS Staff members will only be allowed to edit data related to their job.</li>
-    <li>Teachers will be allowed to submit classes only for the upcoming KWDS.</li>
+    <li>St. Cecilia Staff members will only be allowed to edit data related to their job.</li>
+    <li>Teachers will be allowed to submit classes only for the upcoming St. Cecilia.</li>
     <li>A username, email, and password is the only information required for you to enter.</li>
     <li>It is encouraged for you to fill out as much information as you're comfortable with sharing.</li>
-    <li>Your phone number, and address (if you provide it) will only be able to seen by KWDS staff members.</li>
+    <li>Your phone number, and address (if you provide it) will only be able to seen by St. Cecilia staff members.</li>
 </ul>
 <h3></h3>
 <form class="form" method="post" action="register.php">

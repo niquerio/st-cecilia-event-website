@@ -1,10 +1,10 @@
 <?php
 /*
- * KWDS My Schedule
+ * St. Cecilia My Schedule
  */
 require_once('includes/header.php');
 ?>
-<h1>My Schedule for KWDS <?php echo $kwds['KWID'] ?></h1>
+<h1>My Schedule for St. Cecilia <?php echo $kwds['KWID'] ?></h1>
 <?php
 if (!isset($_POST['checkboxes'])) {
     echo '<div class="box attention">You don\'t have any classes selected from the schedule.</div>';

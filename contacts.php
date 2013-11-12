@@ -1,13 +1,13 @@
 <?php
 /*
- * KWDS Contact Page
+ * St. Cecilia Contact Page
  */
 require_once('includes/header.php');
 
 $result=$db->get_staff($kwds['KWID']);
 ?>
 
-<h1>KWDS <?php echo $kwds['KWID'] ?> Staff Members</h1>
+<h1>St. Cecilia <?php echo $kwds['KWID'] ?> Staff Members</h1>
 <?php
 if (count($result) > 0) {
     foreach ($result as $row) {

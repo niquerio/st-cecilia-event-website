@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Lodging
+ * St. Cecilia Lodging
  */
 require_once('includes/header.php');
 $info = $db->get_kwds_field('lodging',$kwds['KWID']);

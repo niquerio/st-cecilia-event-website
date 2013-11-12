@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 if (isset($_POST['update']) AND $_POST['attend']!=1) {
     $db->detele_attendance($_SESSION['user_id']);
-    echo '<div class="box success">You are choosing not to attend this KWDS.</div>';
+    echo '<div class="box success">You are choosing not to attend this St. Cecilia.</div>';
 }
 
 $attendance = $db->get_attendance($_SESSION['user_id'],$kwds['KWID']);
@@ -51,7 +51,7 @@ elseif (isset($_POST['update']) AND $attend==1) {
 <h1>Attendance Record</h1>
 <form action="attendance.php?id=<?php echo $kwds['KWID']; ?>" method="post" class="form">
     <ul>
-        <li>Will you be attending KWDS <?php echo roman($kwds['KWID']);?> ?&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="1" name="attend" <?php if($attend==1) {echo 'checked="checked"';} ?> /> Yes
+        <li>Will you be attending St. Cecilia <?php echo roman($kwds['KWID']);?> ?&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="1" name="attend" <?php if($attend==1) {echo 'checked="checked"';} ?> /> Yes
             &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="attend" <?php if($attend!=1) {echo 'checked="checked"';} ?> /> No</li>
         <br /><div class="box warning">If you are teaching any classes, enter your expected arrival and departure dates. <br />This will help in the scheduling of your classes.</div><br />
         <li><label>Arrival Date:</label><?php get_event_dates($adate,'adate'); /*name="date"*/ ?></li>

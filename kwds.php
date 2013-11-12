@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Edit Site Info
+ * St. Cecilia Edit Site Info
  */
 require_once('includes/header.php');
 if (!(is_autocrat($_SESSION['user_id'], $kwds['KWID']) AND $kwds['KWID']>=$db->get_next_kwds()) AND !is_super_user()) {
@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
     $db->update_kwds($address,$attraction,$concerts,$evening_activities,$banner,$city,$class_date,$country,$desc,$dir,$end_date,$facebook,$faq,$food,
             $group,$kingdom,$kwds['KWID'],$linkDesc,$linkName,$linkUrl,$lodging,$merchant,$name,$parking,
             $proceeding,$start_date,$state,$status,$zip);
-    echo '<div class="box success">The KWDS information has been updated!</div>';
+    echo '<div class="box success">The St. Cecilia information has been updated!</div>';
 }
 ?>
 <h1>Edit Site Information</h1>

@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS 404 Page Not Found
+ * St. Cecilia 404 Page Not Found
  */
 require_once('includes/header.php');
 ?>

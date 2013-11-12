@@ -25,8 +25,8 @@ if (isset($_POST['select']) AND (is_autocrat($_SESSION['user'],$kwds['KWID'])
             else {$headers= ($email['email'].', '.$headers);}
         }
         $e_mail = $db->get_user_email($_SESSION['user_id']);
-        mail('', '[KWDS]'.$_POST['subject'], $_POST['message'], 'From: '.$e_mail."\r\n".'Bcc: '.$headers);
-        mail($email, '[KWDS]'.$_POST['subject'], $_POST['message'], 'From: '.$e_mail."\r\n");
+        mail('', '[St. Cecilia]'.$_POST['subject'], $_POST['message'], 'From: '.$e_mail."\r\n".'Bcc: '.$headers);
+        mail($email, '[St. Cecilia]'.$_POST['subject'], $_POST['message'], 'From: '.$e_mail."\r\n");
         echo '<div class="box success">Your email was sent to '.count($emails).' people.</div><br />';
     }
 }

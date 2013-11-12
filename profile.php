@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS User Profile Page
+ * St. Cecilia User Profile Page
  */
 require_once('includes/header.php');
 
@@ -57,12 +57,12 @@ if (count($result) > 0) {
         if (count($results) >0) {
             echo '
     <div class="jobs">
-        <h2>KWDS Staff</h2>
+        <h2>St. Cecilia Staff</h2>
         <ul>';
             
             foreach ($results as $result) {
                 echo '
-            <li><label>KWDS '.$result['KWID'].': </label> '.$result['JobName'].'</li>';
+            <li><label>St. Cecilia '.$result['KWID'].': </label> '.$result['JobName'].'</li>';
             }
             echo '
         </ul>
@@ -84,7 +84,7 @@ if (count($result) > 0) {
                 }
                 if ($result['accepted'] == 1 or $id == $_SESSION['user_id']) {
                 echo '<a href="schedule.php?kwds='. $result['KWID'].'&id='. $result['ClassID'].'">
-                    <span class="bold">KWDS '.$result['KWID'].'</span>: '.$result['ClassName'].'</a></li>';
+                    <span class="bold">St. Cecilia '.$result['KWID'].'</span>: '.$result['ClassName'].'</a></li>';
                 }
             }
             echo '
@@ -107,7 +107,7 @@ if (count($result) > 0) {
                 }
                 if ($result['accepted'] == 1 or $id == $_SESSION['user_id']) {
                 echo '<a href="schedule.php?kwds='. $result['KWID'].'&id='. $result['ClassID'].'">
-                    <span class="bold">KWDS '.$result['KWID'].'</span>: '.$result['ClassName'].'</a></li>';
+                    <span class="bold">St. Cecilia '.$result['KWID'].'</span>: '.$result['ClassName'].'</a></li>';
                 }
             }
             echo '

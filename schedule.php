@@ -1,6 +1,6 @@
 <?php
 /*
- * KWDS Schedule
+ * St. Cecilia Schedule
  */
 require_once('includes/header.php');
 //require_once ('includes/ChromePhp.php');
@@ -136,15 +136,15 @@ if (count($conflicts) > 0) {
 </div>
 <?php
 
-// Determines number of days that this KWDS lasts
+// Determines number of days that this St. Cecilia lasts
 $kday = 0;
 $keday = (date('z', strtotime($kwds['end_date'])) - date('z', strtotime($kwds['start_date'])));
 $results = $db->get_rooms($kwds['KWID']);
 for ($kday; $kday <= $keday; $kday++) {
 
-    // Show message if there are no rooms submitted for this KWDS
+    // Show message if there are no rooms submitted for this St. Cecilia
     if (count($results) < 1) {
-        echo '<div class="box attention">There are no rooms available for this KWDS yet.</div>';
+        echo '<div class="box attention">There are no rooms available for this St. Cecilia yet.</div>';
         $kday=$keday+1;
     }
 
