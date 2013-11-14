@@ -13,6 +13,7 @@ class db {
         $this->connection = @mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
 //        AND $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME)
             OR die('Unable to connect to database!');
+	mysqli_set_charset($this->connection,'utf8');
     }
 
     // Checks teacher attendance against his/her scheduled classes
