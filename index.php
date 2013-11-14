@@ -6,6 +6,7 @@ require('includes/header.php');
 
 ?>
     <h1 class="header">
+    The Barony of Cynnabar Presents<br>
         <a href="index.php?kwds=<?php echo $kwds['KWID']; ?>" title="Home">St. Cecilia at the Tower <? echo $kwds['KWID']; ?></a></h1>
     <div class="entry">
 <img alt="st_cecilia_guido_mashup" src="http://cynnabar.org/sites/cynnabar.org/files/u44/cecilia_tower_no_text_small.png" style="border:0px solid;margin:10px;float:right;" />
