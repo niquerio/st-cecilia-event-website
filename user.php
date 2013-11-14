@@ -147,4 +147,6 @@ function edit_profile_form($edit) { ?>
     <input type="hidden" name="uid" value="<?php echo $_POST['uid'] ?>" />
     <input type="hidden" name="edit" value="true" />
 </form>
-<?php } ?>
+<?php } 
+include_once('includes/footer.php');
+?>
