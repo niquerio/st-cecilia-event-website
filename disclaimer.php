@@ -14,7 +14,7 @@ require_once('includes/header.php');
     any information on this site and the printed version that is available from the
     originating office will be decided in favor of the printed version. </p>
 
-<p>Copyright © <?php echo date('Y',time()); ?> by The Barony of Cynnabar <?php echo roman($kwds['KWID']);?>,
+<p>Copyright © <?php echo date('Y',time()); ?> by The Barony of Cynnabar,
     Society for Creative Anachronism, Inc. The original contributors retain
     the copyright to certain portions of this site. </p>
 
@@ -23,7 +23,7 @@ require_once('includes/header.php');
     They will assist you in contacting the original creator of the piece.
     Please respect the legal rights of our contributors. </p>
 
-<p>All external links are not part of The Known World Dance Symposium <?php echo roman($kwds['KWID']);?> website.
+<p>All external links are not part of the St. Cecilia at the Tower <?php echo roman($kwds['KWID']);?> website.
     Inclusion of a page or site here is neither implicit nor explicit endorsement of the site.
     Further, SCA, Inc. is not responsible for content outside of http://www.cynnabar.org.</p>
 
