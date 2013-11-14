@@ -17,7 +17,7 @@ elseif (isset($_POST['code']) AND sanit(md5(strtolower($_POST['code'])))!="18d67
 }
 elseif (isset($_POST['message'])) {
     $to = $db->get_user_email($_POST['uid']);
-    if (isset($SESSION['user_id'])) {
+    if (isset($_SESSION['user_id'])) {
         $from = $db->get_user_email($_SESSION['user_id']);
     }
     else {
@@ -26,9 +26,9 @@ elseif (isset($_POST['message'])) {
     $message = 'This message was sent via cynnabar.org:
 
 '.escape_query($_POST['message']);
-    mail($to, '[St. Cecilia]'.$_POST['subject'], redisplay($message), 'FROM: '.$from);
-    mail($from, '[St. Cecilia]'.$_POST['subject'], redisplay($message).'(*You sent this message to '.$db->get_username($_POST['uid']).'*)', 'FROM: '.$from);
-    echo '<div class="box success">Your email has been sent!</div>';
+    mail($to, '[St. Cecilia] '.$_POST['subject'], redisplay($message), 'FROM: '.$from);
+    mail($from, '[St. Cecilia] '.$_POST['subject'], redisplay($message).'(*You sent this message to '.$db->get_username($_POST['uid']).'*)', 'FROM: '.$from);
+    echo '<div class="box success">Your email has been sent! You should receive a copy in your inbox.</div>';
     redirect('index');
     die;
 }
