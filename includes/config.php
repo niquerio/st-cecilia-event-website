@@ -9,9 +9,9 @@ define('SITE_URL', 'http://cynnabar.org/cecilia');
 
 // Database settings
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'cecilia');
-define('DB_USER', 'music');
-define('DB_PASS', 'blahblahblah');
+define('DB_NAME', '');
+define('DB_USER', '');
+define('DB_PASS', '');
 
 /*
 // Set the site's URL
