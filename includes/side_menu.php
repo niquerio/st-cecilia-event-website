@@ -27,7 +27,7 @@
     <h2>User Options</h2>
     <ul>
         <?php if (!$session->isLoggedIn()) { ?>
-        <!--<li><a href="register.php">Register</a></li> -->
+        <li><a href="register.php">Create an Account</a></li> 
         <li><a href="login.php">Login</a></li>
         <li><a href="login.php?submit=1">Submit a Class</a></li>
 

@@ -91,7 +91,6 @@ if (!$session->isLoggedIn()) {
 
             $random=random_gen(32);
             $db->setup_password($_POST['email'], $random);
-            echo '<div class="box">'.$_POST['email'] . ' ' . $random.'</div>';
             $message = 'To activate your account, please visit the following page and submit a password for your account: '.SITE_URL.'/reset.php?x='.$random;
             mail($email, '[St. Cecilia]New Account Registration', $message, 'From: no_reply@cynnabar.org');
 
@@ -113,9 +112,13 @@ if (!$session->isLoggedIn()) {
 
 function get_register_form() {
 ?>
+<form name = email_jadzia action="email.php" method="post">
+<input type = "hidden" name="uid" value="2">
+</form>
+
 <div class="warning box">If you have not made an account yet, but you have taught at a previous St. Cecilia or
-    have been a staff member, then an account was already made for you. Email gwommy at gmail.com
-    with your SCA Name and he'll set it up so you can use the forgot password option on the login page.</div>
+    have been a staff member, then an account was already made for you. Email <a href="#" onclick="document.email_jadzia.submit();return false;">Jadzia</a>
+    with your SCA Name and she'll set it up so you can use the forgot password option on the login page.</div>
 <ul class="registration">
     <li>All St. Cecilia staff and teachers must register an account.</li>
     <li>Once you make an account, you'll be able to use it from year to year.</li>
