@@ -12,7 +12,7 @@ if (!isset($_POST['checkboxes'])) {
     include_once('includes/footer.php');
     die;
 }
-$where="class.id='-1' ";
+$where="class.id=-1 ";
 echo '<form action="schedule.php?kwds='.$kwds['KWID'].'" method="post">';
 foreach ($_POST as $key => $value) {
     echo '<input type="hidden" name="'.$key.'" value="'.$value.'" />';
@@ -38,7 +38,7 @@ foreach ($results as $result) {
     echo '<div class="time">'.  date('g:i A',strtotime($result['day'])).'</div>';
     echo '<div class="room">'.$result['RoomName'].'</div>';
     echo '<div class="name">'.$result['ClassName'].'</div>';
-    echo '<div class="prof">'.$result['SCAFirst'].' '.$result['SCALast'].'</div>';
+    echo '<div class="prof">'.$result['Prof'].'</div>';
 }
 echo '</div>';
 echo '<input class="button" name="checkboxes" type="submit" value="Return to Schedule" />';

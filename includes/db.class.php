@@ -344,10 +344,15 @@ class db {
     function get_my_schedule($where) {
        $where = mysqli_real_escape_string($this->connection, $where); 
         return $this->query(
-            "SELECT day, `room`.`name` AS RoomName, `class`.`name` AS ClassName, `sca_first` AS SCAFirst,
-                `sca_last` AS SCALast
-            FROM `class`, `user`, `room`
-            WHERE `user`.`id` = `user_id` AND `room_id` = `room`.`id` AND ($where)
+            "SELECT day, `room`.`name` AS RoomName, `class`.`name` AS ClassName, 
+            GROUP_CONCAT(user.sca_first,' ',user.sca_last SEPARATOR ', ') AS Prof
+            FROM `class`
+            LEFT OUTER JOIN `coteacher` ON coteacher.class_id = class.id
+            LEFT OUTER JOIN `user` ON user.id = coteacher.user_id
+            LEFT OUTER JOIN `room` ON `room`.`id` = class.room_id
+
+            WHERE $where 
+            GROUP BY class_id
             ORDER BY `day`"
         );
     }
