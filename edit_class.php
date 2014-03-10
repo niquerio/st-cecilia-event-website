@@ -56,17 +56,18 @@ if (count($result) >= 1 AND /*$_SESSION['user_id']==$result['teacher']*/$db->is_
 <form class="form" action="edit_class.php?kwds=<?php echo $kwds['KWID'] ?>&id=<?php echo $cid ?>" method="post">
 <div class="class_info">
     <ul>
-        <li><label for="teacher">Teacher(s):</label><?php
-        $teachers=$db->get_class_teachers($cid);
+<?php $teachers=$db->get_class_teachers($cid); ?>
+        <li id="current_class_teachers"><label for="teacher">Teacher(s):</label><?php
         foreach ($teachers as $teacher) {
-            echo '<br /><label></label>';
+            echo '<p id="current_class_teacher_'.$teacher['UserID'].'"><label></label>';
             echo '<a href="profile.php?id='.$teacher['UserID'].'">'.$teacher['sca_first'].' '.$teacher['sca_last'];
             if ($teacher['first']!="") {
                 echo '('.$teacher['first'].' '.$teacher['last'].')';
             }
-            echo '</a>';
+            echo '</a> [<a href="javascript:void()" onClick="remove_teacher_from_class(' .$cid. ',' .$teacher['UserID'].')">Remove</a>]</p>';
         }
-        echo '<br /><br />'; ?></li>
+        
+    echo('<p id="show_hide_teacher_search"><a href="javascript:void()" onClick="search_for_teacher(\''.$cid.'\')">Add Teacher</a></p></li>')?>
         <li><label for="name">Class Name:</label><input type="text" name="name"<?php echo 'value="'.$class_name.'"'; ?> /></li>
         <li><label for="desc">Class Description:</label><textarea name="desc" cols="50" rows="10"><?php echo $desc ?></textarea></li>
         <li><label for="hours" style="padding:0px">Length of Class:</label> 50 Minutes<?php// dropdown_num('hours', 0, 8, 1,$hour); echo 'Hrs '; dropdown_num('minutes', 0, 55, 5, $minute); echo 'Minutes'; ?></li>
