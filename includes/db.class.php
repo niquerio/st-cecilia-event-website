@@ -135,17 +135,17 @@ class db {
             //GROUP BY room_id
             //ORDER BY class.name"
             "SELECT accepted, class.description AS ClassDescription,
-                class.kwds_id AS KWID, class.name AS ClassName, class.user_id AS teacher, day, difficulty_id AS DifficultyID,
+            class.kwds_id AS KWID, class.name AS ClassName, class.user_id AS teacher, day, difficulty_id AS DifficultyID,
                 difficulty.name AS DifficultyName, fee, hours, `class`.`limit` AS 'limit',
                 `class`.other AS other, prefix.name AS PrefixName, room.id AS RoomID, room.name AS RoomName, sca_first AS SCAFirst,
                 sca_last AS SCALast, style_id AS StyleID, style.name AS StyleName, title.name AS 'Title', type_id AS TypeID,
                 type.name AS TypeName, class.url as 'url',user.first AS MundaneFirst, user.id AS UserID, user.last AS MundaneLast
-            FROM `class`, `difficulty`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
-            WHERE difficulty_id=difficulty.id AND `class`.id='$id'
+                FROM `class`, `difficulty`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
+                WHERE difficulty_id=difficulty.id AND `class`.id='$id'
                 AND user.group_id=`group`.id AND kingdom_id=kingdom.id AND prefix_id=prefix.id
                 AND (room_id=room.id or room_id='0') AND style_id=style.id AND title_id=title.id AND type_id=type.id
                 AND class.user_id=user.id
-            GROUP BY room_id
+                GROUP BY room_id
             ORDER BY class.name"
         );
         if ($return) return $return[0];
@@ -924,6 +924,31 @@ class db {
         return $this->query ("UPDATE kwds SET evening_activities='$info' WHERE id='$id'");
     }
     // Update the information of a class
+    function update_class_by_user($cid, $desc, $diff, $fee, $hours, $name, $style, $type, $notes='') {
+        $other='';
+        if ($notes!='') {
+            $notes = mysqli_real_escape_string($this->connection, $notes);
+            $other=", other='$notes'";
+        }
+            $cid = mysqli_real_escape_string($this->connection, $cid);
+            $desc = mysqli_real_escape_string($this->connection, $desc);
+            $diff = mysqli_real_escape_string($this->connection, $diff);
+            $fee = mysqli_real_escape_string($this->connection, $fee);
+            //$hours = mysqli_real_escape_string($this->connection, $hours);
+            $hours = 50;
+            $name = mysqli_real_escape_string($this->connection, $name);
+            $style = mysqli_real_escape_string($this->connection, $style);
+            $type = mysqli_real_escape_string($this->connection, $type);
+
+        return $this->query(
+            "UPDATE class SET description='$desc', 
+                difficulty_id='$diff', fee='$fee',hours='$hours',name='$name',
+                 style_id='$style', type_id='$type'".$other."
+            WHERE id='$cid'"
+        );
+    }
+
+    // Update the information of a class
     function update_class($accept, $cid, $date, $desc, $diff, $fee, $hours, $name, $room, $style, $type, $notes='') {
         $other='';
         if ($notes!='') {
@@ -936,9 +961,10 @@ class db {
             $desc = mysqli_real_escape_string($this->connection, $desc);
             $diff = mysqli_real_escape_string($this->connection, $diff);
             $fee = mysqli_real_escape_string($this->connection, $fee);
-            $hours = mysqli_real_escape_string($this->connection, $hours);
+            //$hours = mysqli_real_escape_string($this->connection, $hours);
+            $hours = 50;
             $name = mysqli_real_escape_string($this->connection, $name);
-            $room = mysqli_real_escape_string($this->connection, $room);
+            //$room = mysqli_real_escape_string($this->connection, $room);
             $style = mysqli_real_escape_string($this->connection, $style);
             $type = mysqli_real_escape_string($this->connection, $type);
 
@@ -953,7 +979,6 @@ class db {
             WHERE id='$cid'"
         );
     }
-
     // Update class submission date
     function update_classSubmissionDate($date, $id) {
             $date = mysqli_real_escape_string($this->connection, $date);

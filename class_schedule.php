@@ -100,16 +100,14 @@ if (isset($_POST['class'])) {
     $cid=$_POST['cid'];
     $name=$_POST['name'];
     $desc=$_POST['desc'];
-    $hours=$_POST['hours']*60+$_POST['minutes'];
+    //$hours=$_POST['hours']*60+$_POST['minutes'];
+    $hours=50;
     $style=$_POST['style'];
     $type=$_POST['type'];
     $room=($accept!=0)?$_POST['room']:0;
-    //$aero=$_POST['aerobic'];
     $diff=$_POST['difficulty'];
     $time=($_POST['hour']<8)?$_POST['hour']+12:$_POST['hour'];
-   // $era=$_POST['era'];
     $date=$_POST['date'].' '.$time.':'.$_POST['minute'].':00';
-    //$db->update_class($accept,$aero,$cid,$date,$desc,$diff,$era,$fee,$hours,$name,$room,$style,$type);
     $db->update_class($accept,$cid,$date,$desc,$diff,$fee,$hours,$name,$room,$style,$type);
 }
 
@@ -156,7 +154,6 @@ $cid = (isset($_GET['id'])) ? $_GET['id'] : 0;
 $result = $db->get_class($cid);
 if (count($result) > 0) {
     $accept = $result['accepted'];
-    //$aero= $result['AerobicID'];
     $cdate= date('Y-m-d', (strtotime($result['day'])));
     $class_name = $result['ClassName'];
     $desc = redisplay($result['ClassDescription']);
@@ -208,12 +205,9 @@ if (count($result) > 0) {
         //$db=new db; $resul=$db->get_list('user'); dropdown($result, 'user'
     echo('<p id="show_hide_teacher_search"><a href="javascript:void()" onClick="search_for_teacher(\''.$cid.'\')">Add Teacher</a></p></li>')?>
         <li><label for="name">Class Name:</label><input type="text" name="name"<?php echo 'value="'.$class_name.'"'; ?> /></li>
-<!--        <li><label>Teacher:</label><?php echo $sca_name; if ($mundane_name!="  ") { echo' ('.$mundane_name.' )'; } ?></li>-->
         <li><label for="desc">Class Description:</label><textarea name="desc" cols="50" rows="10"><?php echo $desc ?></textarea></li>
-        <li><label for="hours">Length of Class:</label><?php dropdown_num('hours', 0, 8, 1,$hour); echo 'Hrs '; dropdown_num('minutes', 0, 55, 5, $minute); echo 'Minutes'; ?></li>
+        <li><label for="hours" style="padding:0px">Length of Class:</label> 50 minutes<?php // dropdown_num('hours', 0, 8, 1,$hour); echo 'Hrs '; dropdown_num('minutes', 0, 55, 5, $minute); echo 'Minutes'; ?></li> 
         <li><label for="difficulty">Suggested Skill Level:</label><?php $db=new db; $result=$db->get_list('difficulty'); dropdown($result, 'difficulty', $diff) ?></li>
-      <!--  <li><label for="aerobic">Aerobic Level:</label><?php// $result=$db->get_list('aerobic'); dropdown($result, 'aerobic', $aero) ?></li> -->
-        <!--<li><label for="era">Time Period:</label><?php// $result=$db->get_list('era'); dropdown($result, 'era', $era) ?></li>-->
         <li><label for="type">Type of Class:</label><?php $result=$db->get_list('type'); dropdown($result, 'type', $type) ?></li>
         <li><label for="style">Teaching Style:</label><?php $result=$db->get_list('style'); dropdown($result, 'style', $style) ?></li>
         <li><label for="room">Room:</label><?php $result=$db->get_rooms($kwds['KWID']); $result[count($result)]['id']=0;
