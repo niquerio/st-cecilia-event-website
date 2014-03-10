@@ -131,7 +131,6 @@ if (count($result) > 0) {
             echo '</a> [<a href="javascript:void()" onClick="remove_teacher_from_class(' .$cid. ',' .$teacher['UserID'].')">Remove</a>]</p>';
         }
         
-        //$db=new db; $resul=$db->get_list('user'); dropdown($result, 'user'
     echo('<p id="show_hide_teacher_search"><a href="javascript:void()" onClick="search_for_teacher(\''.$cid.'\')">Add Teacher</a></p></li>')?>
         <li><label for="name">Class Name:</label><input type="text" name="name"<?php echo 'value="'.$class_name.'"'; ?> /></li>
         <li><label for="desc">Class Description:</label><textarea name="desc" cols="50" rows="10"><?php echo $desc ?></textarea></li>

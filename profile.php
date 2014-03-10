@@ -78,9 +78,8 @@ if (count($result) > 0) {
             foreach ($results as $result) {
                 echo'
             <li>';
-                if ($result['RoomID'] == 0 and $id == $_SESSION['user_id'] and $result['KWID']>= $db->get_next_kwds()) {
-                    echo'(<a href="edit_class.php?kwds='.$result['KWID'].'&id='.$result['ClassID'].'">Edit</a> |
-                        <a href="add_teacher.php?kwds='.$result['KWID'].'&id='.$result['ClassID'].'">Add Teacher</a>)';
+                if ($id == $_SESSION['user_id']) {
+                    echo'(<a href="edit_class.php?kwds='.$result['KWID'].'&id='.$result['ClassID'].'">Edit</a>)';
                 }
                 if ($result['accepted'] == 1 or $id == $_SESSION['user_id']) {
                 echo '<a href="schedule.php?kwds='. $result['KWID'].'&id='. $result['ClassID'].'">
@@ -101,11 +100,13 @@ if (count($result) > 0) {
             foreach ($results as $result) {
                 echo'
             <li>';
-                if ($result['RoomID'] == 0 and $id == $_SESSION['user_id']) {
-                    echo'(<a href="edit_class.php?kwds='.$result['KWID'].'&id='.$result['ClassID'].'">Edit</a> |
-                        <a href="add_teacher.php?kwds='.$result['KWID'].'&id='.$result['ClassID'].'">Add Teacher</a>)';
+                if ($id == $_SESSION['user_id']) {
+                    echo'(<a href="edit_class.php?kwds='.$result['KWID'].'&id='.$result['ClassID'].'">Edit</a>)';
                 }
-                if ($result['accepted'] == 1 or $id == $_SESSION['user_id']) {
+                if ($result['accepted'] == 0 and $id == $_SESSION['user_id']) {
+                echo '<a href="schedule.php?kwds='. $result['KWID'].'&id='. $result['ClassID'].'">
+                    <span >St. Cecilia '.$result['KWID'].'</span>: '.$result['ClassName'].'</a> [Not Yet Accepted]</li>';
+                }else {
                 echo '<a href="schedule.php?kwds='. $result['KWID'].'&id='. $result['ClassID'].'">
                     <span class="bold">St. Cecilia '.$result['KWID'].'</span>: '.$result['ClassName'].'</a></li>';
                 }
