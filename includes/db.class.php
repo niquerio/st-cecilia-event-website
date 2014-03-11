@@ -211,7 +211,7 @@ class db {
 
        
         return $this->query(
-            "SELECT class.name AS ClassName, class.id as ClassID, description, `class`.other AS other,
+            "SELECT class.name AS ClassName, class.id as ClassID, description, `class`.accepted as accepted, `class`.other AS other,
             GROUP_CONCAT(user.sca_first,' ',user.sca_last SEPARATOR ', ') AS user,
             type_id AS TypeID, difficulty_id as DifficultyID, style_id as StyleID, day, hours,
                 ((((DATE_FORMAT(day,'%k') - 9) * 60) + DATE_FORMAT(day,'%i')) * 1.15) as time

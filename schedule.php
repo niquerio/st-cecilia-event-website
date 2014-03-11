@@ -175,6 +175,7 @@ for ($kday; $kday <= $keday; $kday++) {
 
                 foreach ($rooms as $room) {
                     //if ((isset($_POST['checkboxes']) AND $_POST['c' . $room['ClassID']] == $room['ClassID'])) {
+                   if (!$room['accepted']){ continue;}
                         echo '<div class="class';
                         if (in_array($room['ClassID'], $myClasses)){echo ' required';}
                         elseif (in_array($room['ClassID'], $userClasses)) {echo ' other';}

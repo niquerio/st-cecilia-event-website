@@ -33,7 +33,8 @@ if (isset($_POST['class'])) {
     $hours=50;
     $style=$_POST['style'];
     $type=$_POST['type'];
-    $room=($accept!=0)?$_POST['room']:0;
+    $room=$_POST['room'];
+    //$room=($accept!=0)?$_POST['room']:0;
     $diff=$_POST['difficulty'];
     $time=($_POST['hour']<8)?$_POST['hour']+12:$_POST['hour'];
     $date=$_POST['date'].' '.$time.':'.$_POST['minute'].':00';
@@ -140,11 +141,12 @@ if (count($result) > 0) {
         <li><label for="style">Teaching Style:</label><?php $result=$db->get_list('style'); dropdown($result, 'style', $style) ?></li>
         <li><label for="room">Room:</label><?php $result=$db->get_rooms($kwds['KWID']); $result[count($result)]['id']=0;
             $result[count($result)-1]['name']='n/a'; dropdown($result, 'room', $room_id) ?></li>
-        <li><label for="hours">Start Time:</label><?php dropdown_number_array([9,10,11,12,1,2,3,4,5],'hour',10)//dropdown_num('hour', 1, 12, 1,$hr); //echo ' : '; dropdown_num('minute', 0, 55, 5, $min); ?></li>
+        <li><label for="hours">Start Time:</label><?php dropdown_number_array([9,10,11,12,1,2,3,4,5],'hour',$hr)//dropdown_num('hour', 1, 12, 1,$hr); //echo ' : '; dropdown_num('minute', 0, 55, 5, $min); ?></li>
         <li><label>Date: </label><?php get_event_dates($cdate); /*name="date"*/ ?></li>
         <li><label>Accepted:</label><input type="checkbox" value="1" name="accept" <?php if ($accept==1) {echo 'checked="checked" ';} ?>/></li>
         <li><label></label><input type="submit" class="button" name="class" value="Update" /></li>
         <li><label></label><input type="submit" class="button" name="remove" value="Remove Class" /></li>
+        <li><label></label><input type="submit" class="button" name="unschedule" value="Unschedule Class" /></li>
     </ul>
     <input type="hidden" name="kwds" value="<?php echo $kwds['KWID'] ?>" />
     <input type="hidden" name="cid" value="<?php echo $cid ?>" />
@@ -153,6 +155,7 @@ if (count($result) > 0) {
 <?php } ?>
 
 <h1>Schedule</h1>
+    <div class="warning margins box">Highlighted classes have not been approved and are not visible to general users.</div>
 <div class="schedule">
     <div class="legend_th"><u>Legend</u><br />Black is not rated<br />&nbsp;</div>
     <div class="wrapper">
@@ -198,6 +201,7 @@ for ($kday=0; $kday <= $keday; $kday++) {
                     //echo 'other='.$rooms['other'];
                     echo '<a title="'.redisplay($rooms['other']).'" href="class_schedule.php?kwds=' . $kwds['KWID'] . '&id=' . $rooms['ClassID'] . '">
                         <div class="class';
+                    if(!$rooms['accepted']){ echo ' highlight'; }
                     if (in_array($rooms['ClassID'], $badID)){echo ' conflict';}
                     elseif (in_array($rooms['ClassID'], $offSite)) {echo ' conflict';}
                     elseif (in_array($rooms['ClassID'], $userClasses)){echo ' required';}
@@ -252,8 +256,7 @@ for ($kday=0; $kday <= $keday; $kday++) {
 </div>';
     }
 }
-echo '<div class="schedule"><h2>Unscheduled Classes</h2>
-    <div class="warning margins box">Highlighted classes have not been approved and are not visible to general users.</div>';
+echo '<div class="schedule"><h2>Unscheduled Classes</h2>';
 $classes = $db->get_unscheduled_classes($kwds['KWID']);
 
 if (count($classes) > 0) {
