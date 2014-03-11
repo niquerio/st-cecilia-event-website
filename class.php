@@ -27,14 +27,14 @@ if (isset($_POST['name']) AND trim($_POST['name'])=="") {
     echo '<div class="box warning">Please enter a name or title for your class.</div>';
     show_class_form();
 }
+// Verify that the class has teachers
+//if (isset($_POST['teachers']) AND trim($_POST['teachers'])== false) {
+//    echo '<div class="box warning">Please enter teacher(s) for your class.</div>';
+//    show_class_form();
+//}
 // Verify that the class includes a description
 elseif (isset($_POST['desc']) AND trim($_POST['desc'])=="") {
     echo '<div class="box warning">Please enter a brief description about your class.</div>';
-    show_class_form();
-}
-// Verify that the hours are entered correctly
-elseif (isset($_POST['hours']) AND ($_POST['hours']*60+$_POST['minutes'] < 10)) {
-    echo '<div class="box error">Your class should not be less than 10 minutes long.</div>';
     show_class_form();
 }
 // If a class was submitted and passes the above error checks, insert it into the data base
@@ -42,7 +42,8 @@ elseif (isset($_POST['class'])) {
     $desc=$_POST['desc'];
     $diff=$_POST['difficulty'];
     $fee=(isset($_POST['fee']))?$_POST['fee']:0;
-    $hours=($_POST['hours']*60)+$_POST['minutes'];
+    //$hours=($_POST['hours']*60)+$_POST['minutes'];
+    $hours=50;
     $kwds=$kwds['KWID'];
     $limit=(isset($_POST['limit']))?$_POST['limit']:0;
     $name=$_POST['name'];
@@ -51,13 +52,9 @@ elseif (isset($_POST['class'])) {
     $type=$_POST['type'];
     $url=$_POST['url'];
     $user=$_SESSION['user_id'];
-    if (isset($_POST['teacher']) AND $_POST['teacher']==1) {
-        $teacher = 0;
-    } else {
-        $teacher = 1;
-    }
-    //$db->insert_class($aero, $desc, $diff, $era, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user);
-    $db->insert_class($desc, $diff, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user);
+    $teachers = $_POST['teachers']; //array;
+
+    $db->insert_class_with_teacher($desc, $diff, $fee, $hours, $kwds, $limit, $name, $notes, $style, $type, $url, $user, $teachers);
     echo '<div class="box success">You have successfully submitted your class. '.$kwds.'</div>';
     redirect('index',$kwds['KWID']);
 }
@@ -67,10 +64,8 @@ elseif (isset($_GET['id'])){
         $result='';
     }
     else {
-       // $aero= $result['AerobicName'];
         $desc=$result['description'];
         $diff= $result['DifficultyName'];
-        //$era= $result['EraName'];
         $fee= ($result['fee']!='')? $result['fee']:0;
         $hours= $result['hours'];
         $kwds= $result['KWID'];
@@ -98,9 +93,11 @@ function show_class_form($cutoff) { ?>
     by the appropriate St. Cecilia staff. You can edit your class anytime before it is added to the schedule.</div>
     <div class="warning box">For further information about a box, hover over or click the small icons on the right side.</div>
     <ul>
-        <?php if (is_class_scheduler($_SESSION['userID'],$KWID)) { ?>
-        <li><label></label><input class="radio" type="checkbox" name="teacher" value="1" />I will not be teaching this class.
-        <?php } ?>
+        <li id="current_class_teachers"><label for="teacher">Teacher(s):</label>
+    <script  type="text/javascript"> $(window).ready(function(){load_users(); add_potential_teacher_name(<?php echo $_SESSION['user_id']; ?>)});</script>
+        </li>
+<?php
+    echo('<p id="show_hide_teacher_search"><a href="javascript:void()" onClick="search_potential_teachers()">Add Teacher</a></p></li>')?>
         <li><label for="name">Class Name:</label><input type="text" name="name"
             <?php if (isset($_POST['name'])) { echo 'value="'.$_POST['name'].'"'; } ?>
             <?php if (isset($name)) { echo 'value="'.$name.'"'; } ?> />
@@ -109,10 +106,7 @@ function show_class_form($cutoff) { ?>
         <li><label for="desc">Class Description:</label><textarea name="desc" cols="50" rows="10"></textarea>
             <img src="images/icons/asterix.png" alt="Required" title="Required"
                  onclick="alert('This is a required field.')" style="vertical-align:top;"/></li>
-        <li><label for="hours">Length of Class:</label><?php dropdown_num('hours', 0, 8); echo 'Hrs '; dropdown_num('minutes', 0, 55, 5); echo 'Minutes'; ?>
-            <img src="images/icons/exclamation.png" alt="Make a rough estimate" style="margin-left:8px"
-                 title="Make a rough estimate, this may be changed later by the class coordinator to fit the schedule."
-                 onclick="alert('Make a rough estimate, this may be changed later by the class coordinator to fit the schedule.')" /></li>
+        <li><label for="hours" style="padding:0px">Length of Class:</label> 50 Minutes<?php// dropdown_num('hours', 0, 8, 1,$hour); echo 'Hrs '; dropdown_num('minutes', 0, 55, 5, $minute); echo 'Minutes'; ?></li>
         <li><label for="fee">Class Fee:</label><input type="text" name="fee" />
             <img src="images/icons/question.png" alt="Optional" title="Optional"
                 onclick="alert('This is optional, most classes do not have any fees.')" /></li>

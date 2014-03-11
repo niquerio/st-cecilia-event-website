@@ -454,6 +454,12 @@ class db {
         );
     }
 
+    function get_users(){
+        return $this->query(
+            "SELECT user.id AS UserID, user.sca_first AS SCAFirst, user.sca_last AS SCALast,
+             user.first AS MundaneFirst, user.last AS MundaneLast 
+            FROM user ");
+    }
     function get_users_not_teaching_class($cid){
        $cid = mysqli_real_escape_string($this->connection, $cid); 
         return $this->query(
@@ -608,11 +614,48 @@ class db {
             FROM user ORDER BY sca_first, sca_last, first, last");
     }
 
+    function insert_class_with_teacher($desc, $diff, $fee, $hours, $kwds, $limit, $name, $notes, $style, $type, $url, $user, $teachers) {
+       $desc = mysqli_real_escape_string($this->connection, $desc); 
+       $diff = mysqli_real_escape_string($this->connection, $diff); 
+       $fee = mysqli_real_escape_string($this->connection, $fee); 
+       $hours = mysqli_real_escape_string($this->connection, $hours); 
+       $kwds = mysqli_real_escape_string($this->connection, $kwds); 
+       $limit = mysqli_real_escape_string($this->connection, $limit); 
+       $name = mysqli_real_escape_string($this->connection, $name); 
+       $notes = mysqli_real_escape_string($this->connection, $notes); 
+       $style = mysqli_real_escape_string($this->connection, $style); 
+       $type = mysqli_real_escape_string($this->connection, $type); 
+       $url = mysqli_real_escape_string($this->connection, $url); 
+       $user = mysqli_real_escape_string($this->connection, $user); 
+       //$output = array();
+       $my_teachers = array();
+       foreach($teachers as $teacher){
+          array_push( $my_teachers, mysqli_real_escape_string($this->connection, $teacher)); 
+       }
+    //   //NEED TO TEST THIS STUFF!!!!
+      
+       $class_query = "INSERT INTO ".DB_NAME.".class ( description, difficulty_id, fee, hours,
+                kwds_id, class.limit, name, other, style_id, type_id, url, user_id)
+            VALUES ('$desc', '$diff', '$fee', '$hours', 
+                '$kwds','$limit', '$name', '$notes', '$style', '$type', '$url', '$user')";
+       //array_push( $output, $class_query);
+
+        $this->query($class_query );
+          foreach($my_teachers as $teacher){
+             $co_teacher_query =    "INSERT INTO coteacher(user_id, class_id)  
+                SELECT $teacher, id FROM class WHERE description='$desc' AND difficulty_id='$diff'
+                    AND fee='$fee' AND hours='$hours' AND kwds_id='$kwds' AND class.limit='$limit'
+                    AND name='$name' AND other='$notes' AND style_id='$style' AND type_id='$type'
+                    AND url='$url' ";
+             //array_push($output, $co_teacher_query);
+                    $this->query($co_teacher_query );
+          }
+    }
     // Add a new class to the database
     function insert_class($desc, $diff, $fee, $hours, $kwds, $limit, $name, $notes, $style, $teacher, $type, $url, $user) {
        $desc = mysqli_real_escape_string($this->connection, $desc); 
        $diff = mysqli_real_escape_string($this->connection, $diff); 
-       $fee = mysqli_real_escape_string($this->connection, $id); 
+       $fee = mysqli_real_escape_string($this->connection, $fee); 
        $hours = mysqli_real_escape_string($this->connection, $hours); 
        $kwds = mysqli_real_escape_string($this->connection, $kwds); 
        $limit = mysqli_real_escape_string($this->connection, $limit); 
@@ -866,7 +909,10 @@ class db {
 
     function remove_class($cid){
        $cid = mysqli_real_escape_string($this->connection, $cid); 
-        return $this->query("DELETE FROM class WHERE class.id='$cid'");
+        $output = $this->query("DELETE FROM coteacher WHERE coteacher.class_id='$cid'");
+        $output += $this->query("DELETE FROM class WHERE class.id='$cid'");
+        
+        return $output;
     }
 
     // Add a teacher to a class
