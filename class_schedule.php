@@ -140,7 +140,7 @@ if (count($result) > 0) {
         <li><label for="style">Teaching Style:</label><?php $result=$db->get_list('style'); dropdown($result, 'style', $style) ?></li>
         <li><label for="room">Room:</label><?php $result=$db->get_rooms($kwds['KWID']); $result[count($result)]['id']=0;
             $result[count($result)-1]['name']='n/a'; dropdown($result, 'room', $room_id) ?></li>
-        <li><label for="hours">Start Time:</label><?php dropdown_num('hour', 1, 12, 1,$hr); echo ' : '; dropdown_num('minute', 0, 55, 5, $min); ?></li>
+        <li><label for="hours">Start Time:</label><?php dropdown_number_array([9,10,11,12,1,2,3,4,5],'hour',10)//dropdown_num('hour', 1, 12, 1,$hr); //echo ' : '; dropdown_num('minute', 0, 55, 5, $min); ?></li>
         <li><label>Date: </label><?php get_event_dates($cdate); /*name="date"*/ ?></li>
         <li><label>Accepted:</label><input type="checkbox" value="1" name="accept" <?php if ($accept==1) {echo 'checked="checked" ';} ?>/></li>
         <li><label></label><input type="submit" class="button" name="class" value="Update" /></li>

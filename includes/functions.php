@@ -105,6 +105,23 @@ function dropdown($result, $type, $select = 1) {
     echo '</select>';
 }
 
+function dropdown_number_array($result, $type, $select = 1){
+    echo '<select name="' . $type . '">';
+    // Loop through each index of the result
+    foreach ($result as $row) {
+        echo '<option value="' . $row . '" ';
+
+        // Select the option if it is the same as the one selected in the database
+        if ($select == $row) {
+            echo 'selected="selected"';
+        }
+
+        echo '>' . $row . '</option>';
+    }
+
+    echo '</select>';
+}
+
 
 // Used to create a dropdown box for hour of the day
 function dropdown_hour() {
