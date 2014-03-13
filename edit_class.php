@@ -33,7 +33,7 @@ if (isset($_POST['class'])) {
 $cid = (isset($_GET['id'])) ? (int)$_GET['id'] : 0;
 
 $result = $db->get_class((int)$cid);
-if (count($result) >= 1 AND /*$_SESSION['user_id']==$result['teacher']*/$db->is_teacher($cid,$_SESSION['user_id']) AND $result['RoomID']==0 OR is_super_user()) {
+if ( ( count($result) >= 1 AND $db->is_teacher($cid,$_SESSION['user_id']) ) OR is_super_user() ) {
     $class_name = ($result['ClassName']);
     $desc = redisplay($result['ClassDescription']);
     $length = $result['hours'];
