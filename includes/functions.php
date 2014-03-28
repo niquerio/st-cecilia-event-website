@@ -292,7 +292,7 @@ function is_proceeding_editor($id, $n) {
 
 // Used to verify that the current user has access to everything
 function is_super_user() {
-    if ($_SESSION['user_id']==1 or $_SESSION['user_id']==2 or $_SESSION['user_id']==24) {
+    if ($_SESSION['user_id']==1 or $_SESSION['user_id']==2 or $_SESSION['user_id']==24 or $_SESSION['user_id']==262) {
         return true;
     }
 
