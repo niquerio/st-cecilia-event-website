@@ -18,9 +18,9 @@ if (count($result) > 0) {
     $pre = $result['PrefixName'];
     $email = $result['email'];
     $group = $result['GroupName'];
-    $gurl = $result['GroupUrl'];
+    $gurl = $result['GroupURL'];
     $kingdom = $result['KingdomName'];
-    $kurl = $result['kingdom.url'];
+    $kurl = $result['KingdomURL'];
     $about = $result['about'];
     $title = $result['TitleName'];
 ?>
