@@ -164,17 +164,6 @@ class db {
     function get_class_info($kwds) {
        $kwds = mysqli_real_escape_string($this->connection, $kwds); 
         return $this->query(
-            //"SELECT class.name AS ClassName, sca_first AS SCAFirst, sca_last AS SCALast, title.name AS TitleName,
-            //    user.id AS UserID, user.first AS MundaneFirst, user.last AS MundaneLast, room.name AS RoomName,
-            //    room.id AS RoomID, class.description AS ClassDescription, day, hours, style_id as StyleID,type_id as TypeID,
-            //    difficulty_id AS DifficultyID, aerobic_id AS AerobicID, era_id AS EraID, prefix.name AS PrefixName,
-            //    class.upload AS ClassUpload, class.id AS ClassID, aerobic.name as aerobicName, style.name as styleName,
-            //    difficulty.name as difficultyName
-            //FROM `aerobic`, `class`, `difficulty`, `era`, `group`, `kingdom`, `prefix`, `room`, `style`, `title`, `type`, `user`
-            //WHERE aerobic.id=aerobic_id AND class.kwds_id='$kwds' AND difficulty_id=difficulty.id AND era_id=era.id
-            //    AND user.group_id=group.id AND kingdom_id=kingdom.id AND prefix_id=prefix.id AND room_id=room.id
-            //    AND title_id=title.id AND type_id=type.id AND style_id = style.id AND class.user_id=user.id AND accepted=1
-            //ORDER BY class.name"
             "SELECT class.name AS ClassName, sca_first AS SCAFirst, sca_last AS SCALast, title.name AS TitleName,
                 user.id AS UserID, user.first AS MundaneFirst, user.last AS MundaneLast, room.name AS RoomName,
                 room.id AS RoomID, class.description AS ClassDescription, day, hours, style_id as StyleID,type_id as TypeID,

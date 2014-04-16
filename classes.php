@@ -34,7 +34,7 @@ if (count($result) < 1) {
         $sca_name = $teacher['title'] . ' ' . $teacher['sca_first'] . ' ' . $teacher['sca_last'];
         $mundane_name = $teacher['PrefixName'] . ' ' . $teacher['first'] . ' ' . $teacher['last'];
         echo'
-        <li><label class="bold">Instructor: </label> <a href="profile.php?id=' . $uid . '">' . $sca_name;
+        <li><label class="bold">Instructor: </label> <a href="profile.php?id=' . $teacher['UserID'] . '">' . $sca_name;
         if ($mundane_name != "  ") {
             echo' (' . $mundane_name . ')';
         }
