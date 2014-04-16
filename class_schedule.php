@@ -159,14 +159,17 @@ if (count($result) > 0) {
 <div class="schedule">
     <div class="legend_th"><u>Legend</u><br />Black is not rated<br />&nbsp;</div>
     <div class="wrapper">
-    <div class="class vocal">Vocal Class<br />(Blue Border)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
+    <div class="class vocal">Vocal Class<br />(Green Border)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
     <div class="class instrumental">Instrumental Class<br />(Red Border)<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
     <div class="class vocal_instrumental">Instrumental and Vocal Class<br />(Purple Border)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
-    <div class="class beg">Beginner's Class<br />(Green Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
-    <div class="class int">Intermediate Class<br />(Blue Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
-    <div class="class adv">Advanced Class<br />(Red Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
     <div class="class lecture">Lecture Class<br />(Lecture Icon)</div>
     <div class="class playing">Playing Class<br />(Playing Icon)</div>
+<br>
+    <div class="class level1">Level 1 Class<br />(Green Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
+    <div class="class level2">Level 2 Class<br />(Orange Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
+    <div class="class level3">Level 3 Class<br />(Purple Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
+    <div class="class level4">Level 4 Class<br />(Pink Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
+    <div class="class level5">Level 5 Class<br />(Brown Text)<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>
     </div>
 </div>
 <?php
@@ -221,13 +224,19 @@ for ($kday=0; $kday <= $keday; $kday++) {
                         }
                     switch ($rooms['DifficultyID']) {
                         case 2:
-                            echo ' beg';
+                            echo ' level1';
                             break;
                         case 3:
-                            echo ' int';
+                            echo ' level2';
                             break;
                         case 4:
-                            echo ' adv';
+                            echo ' level3';
+                            break;
+                        case 5:
+                            echo ' level4';
+                            break;
+                        case 5:
+                            echo ' level5';
                             break;
                         default:
                             break;
@@ -277,13 +286,19 @@ if (count($classes) > 0) {
                     }
                     switch ($row['DifficultyID']) {
                         case 2:
-                            echo ' beg';
+                            echo ' level1';
                             break;
                         case 3:
-                            echo ' int';
+                            echo ' level2';
                             break;
                         case 4:
-                            echo ' adv';
+                            echo ' level3';
+                            break;
+                        case 5:
+                            echo ' level4';
+                            break;
+                        case 6:
+                            echo ' level5';
                             break;
                         default:
                             break;

@@ -116,22 +116,27 @@ if (count($conflicts) > 0) {
 <div class="schedule legend printhide">
     <div class="legend_th"><u>Legend</u><br />Black is not rated</div>
     <div class="wrapper">
-    <div class="class vocal">Vocal Class<br />(Blue Border)<br /><input type="checkbox" name="vocal" value="vocal" onclick="form_submit(0)"
+    <div class="class vocal">Vocal Class<br />(Green Border)<br /><input type="checkbox" name="vocal" value="vocal" onclick="form_submit(0)"
         <?php if (isset($_POST['vocal'])) {echo 'checked="checked" '; array_push($where,array('type_id'=>'2'));} ?> />Hide</div>
     <div class="class instrumental">Instrumental Class<br /><br />(Red Border)<br /><input type="checkbox" name="instrumental" value="instrumental" onclick="form_submit(0)"
         <?php if (isset($_POST['instrumental'])) {echo 'checked="checked" ';array_push($where,array('type_id'=>'3'));} ?>/>Hide</div>
     <div class="class vocal_instrumental">Vocal & Instrumental<br />(Purple Border)<br /><input type="checkbox" name="vocal_instrumental" value="vocal_instrumental" onclick="form_submit(0)"
         <?php if (isset($_POST['vocal_instrumental'])) {echo 'checked="checked" '; array_push($where,array('type_id'=>'4'));} ?>/>Hide</div>
-    <div class="class beg">Beginner Class<br />(Green Text)<br /><input type="checkbox" name="beg" value="beg" onclick="form_submit(0)" 
-        <?php if (isset($_POST['beg'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'2'));}?>/>Hide</div>
-    <div class="class int">Intermediate Class<br />(Blue Text)<br /><input type="checkbox" name="int" value="int" onclick="form_submit(0)" 
-        <?php if (isset($_POST['int'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'3'));} ?>/>Hide</div>
-    <div class="class adv">Advanced Class<br />(Red Text)<br /><input type="checkbox" name="advanced" value="advanced" onclick="form_submit(0)" 
-        <?php if (isset($_POST['advanced'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'4'));}?>/>Hide</div>
     <div class="class lecture">Lecture Class<br />(Lecture Icon)<br /><input type="checkbox" name="lecture" value="lecture" onclick="form_submit(0)" 
         <?php if (isset($_POST['lecture'])) {echo 'checked="checked" ';array_push($where,array('style_id'=>'2'));}?>/>Hide</div>
     <div class="class playing">Playing Class<br />(Playing Icon<br /><input type="checkbox" name="playing" value="playing" onclick="form_submit(0)"
         <?php if (isset($_POST['playing'])) {echo 'checked="checked" ';array_push($where,array('style_id'=>'1'));}?>/>Hide</div>
+        <br>
+    <div class="class level1" title="Level 1 - Class is appropriate for nonmusicians">Level 1 Class<br />(Green Text)<br /><input type="checkbox" name="level1" value="level1" onclick="form_submit(0)" 
+        <?php if (isset($_POST['level1'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'2'));}?>/>Hide</div>
+    <div class="class level2" title="Level 2 - Class is geared toward those who have studied music for less than a year, or who make music only occasionally.">Level 2 Class<br />(Orange Text)<br /><input type="checkbox" name="level2" value="level2" onclick="form_submit(0)" 
+        <?php if (isset($_POST['level2'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'3'));} ?>/>Hide</div>
+    <div class="class level3" title="Level 3 - Concepts/skills in this class are aimed at musicians who are comfortable with their instruments.">Level 3 Class<br />(Purple Text)<br /><input type="checkbox" name="level3" value="level3" onclick="form_submit(0)" 
+        <?php if (isset($_POST['level3'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'4'));}?>/>Hide</div>
+    <div class="class level4" title="Level 4 - Experienced musicians may find this class challenging.">Level 4 Class<br />(Pink Text)<br /><input type="checkbox" name="level4" value="level4" onclick="form_submit(0)" 
+        <?php if (isset($_POST['level4'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'5'));}?>/>Hide</div>
+    <div class="class level5" title="Level 5 - This class is very challenging and/or requires a significant amount of specialized knowledge as a prerequisite.">Level 5 Class<br />(Brown Text)<br /><input type="checkbox" name="level5" value="level5" onclick="form_submit(0)" 
+        <?php if (isset($_POST['level5'])) {echo 'checked="checked" ';array_push($where,array('difficulty_id'=>'6'));}?>/>Hide</div>
     </div>
 </div>
 <?php
@@ -196,13 +201,19 @@ for ($kday; $kday <= $keday; $kday++) {
                         
                         switch ($room['DifficultyID']) {
                             case 2:
-                                echo ' beg';
+                                echo ' level1';
                                 break;
                             case 3:
-                                echo ' int';
+                                echo ' level2';
                                 break;
                             case 4:
-                                echo ' adv';
+                                echo ' level3';
+                                break;
+                            case 5:
+                                echo ' level4';
+                                break;
+                            case 6:
+                                echo ' level5';
                                 break;
                             default:
                                 break;
@@ -270,13 +281,19 @@ if (count($classes) > 0) {
         }
         switch ($class['DifficultyID']) {
             case 2:
-                echo ' beg';
+                echo ' level1';
                 break;
             case 3:
-                echo ' int';
+                echo ' level2';
                 break;
             case 4:
-                echo ' adv';
+                echo ' level3';
+                break;
+            case 5:
+                echo ' level5';
+                break;
+            case 6:
+                echo ' level6';
                 break;
             default:
                 break;
