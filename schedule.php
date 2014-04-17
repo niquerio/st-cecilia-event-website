@@ -247,6 +247,21 @@ for ($kday; $kday <= $keday; $kday++) {
 </div>';
     }
 }
+?>
+<div class="schedule wrapper" >
+    <div class="legend_th"><u>Level Descriptions</u></div>
+<div class="" style="text-align:left;display:inline-block;">
+<ul class="level" >
+<li class="level level1">Level 1 - Class is appropriate for nonmusicians. </li>
+<li class="level level2">Level 2 - Class is geared toward those who have studied music for less than a year, or who make music only occasionally.</li>
+<li class="level level3">Level 3 - Concepts/skills in this class are aimed at musicians who are comfortable with their instruments.</li>
+<li class="level level4">Level 4 - Experienced musicians may find this class challenging.</li>
+<li class="level level5">Level 5 - This class is very challenging and/or requires a significant amount of specialized knowledge as a prerequisite.</li>
+
+</ul>
+</div>
+</div>
+<?php
 
 if (count($results) > 0) {
     echo '<p class="printhide">For a personalized schedule, check each class that you want to take above, then click the button below.
